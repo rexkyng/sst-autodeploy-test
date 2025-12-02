@@ -27,17 +27,79 @@ const jwtAuthorizer = apigateway.addAuthorizer({
 	},
 });
 
-// API routes - more specific routes are matched first
-// Handle OPTIONS requests separately to bypass authorizer for CORS preflight
-apigateway.route("OPTIONS /api/{proxy+}", {
-	handler: "packages/functions/src/api.handler",
-	link: [apigateway, auth, cognitoClient],
-});
+// API routes - per-endpoint Lambda handlers with TSOA
 
+// CORS preflight handlers (no auth required)
+// apigateway.route("OPTIONS /api/crm/debtor", {
+// 	handler: "packages/functions/src/handlers/debtor.handler",
+// 	link: [apigateway, auth, cognitoClient],
+// });
+// apigateway.route("OPTIONS /api/crm/search", {
+// 	handler: "packages/functions/src/handlers/search.handler",
+// 	link: [apigateway, auth, cognitoClient],
+// });
+// apigateway.route("OPTIONS /api/crm/customer", {
+// 	handler: "packages/functions/src/handlers/customer.handler",
+// 	link: [apigateway, auth, cognitoClient],
+// });
+// apigateway.route("OPTIONS /api/crm/wrapup", {
+// 	handler: "packages/functions/src/handlers/wrapup.handler",
+// 	link: [apigateway, auth, cognitoClient],
+// });
+// apigateway.route("OPTIONS /api/data", {
+// 	handler: "packages/functions/src/handlers/data.handler",
+// 	link: [apigateway, auth, cognitoClient],
+// });
+// apigateway.route("OPTIONS /api/health", {
+// 	handler: "packages/functions/src/handlers/health.handler",
+// 	link: [apigateway, auth, cognitoClient],
+// });
+// apigateway.route("OPTIONS /api/me", {
+// 	handler: "packages/functions/src/handlers/health.handler",
+// 	link: [apigateway, auth, cognitoClient],
+// });
+
+// CRM endpoints (authenticated)
 apigateway.route(
-	"ANY /api/{proxy+}",
+	"POST /api/crm/debtor",
 	{
-		handler: "packages/functions/src/api.handler",
+		handler: "packages/functions/src/handlers/debtor.handler",
+		link: [apigateway, auth, cognitoClient],
+	},
+	{
+		auth: {
+			lambda: jwtAuthorizer.id,
+		},
+	},
+);
+apigateway.route(
+	"POST /api/crm/search",
+	{
+		handler: "packages/functions/src/handlers/search.handler",
+		link: [apigateway, auth, cognitoClient],
+	},
+	{
+		auth: {
+			lambda: jwtAuthorizer.id,
+		},
+	},
+);
+apigateway.route(
+	"POST /api/crm/customer",
+	{
+		handler: "packages/functions/src/handlers/customer.handler",
+		link: [apigateway, auth, cognitoClient],
+	},
+	{
+		auth: {
+			lambda: jwtAuthorizer.id,
+		},
+	},
+);
+apigateway.route(
+	"POST /api/crm/wrapup",
+	{
+		handler: "packages/functions/src/handlers/wrapup.handler",
 		link: [apigateway, auth, cognitoClient],
 	},
 	{
@@ -47,8 +109,43 @@ apigateway.route(
 	},
 );
 
-apigateway.route("GET /api/openapi", {
-	handler: "packages/functions/src/api.handler",
+// Data endpoint (authenticated)
+apigateway.route(
+	"POST /api/data",
+	{
+		handler: "packages/functions/src/handlers/data.handler",
+		link: [apigateway, auth, cognitoClient],
+	},
+	{
+		auth: {
+			lambda: jwtAuthorizer.id,
+		},
+	},
+);
+
+// Public endpoints
+apigateway.route("GET /api/health", {
+	handler: "packages/functions/src/handlers/health.handler",
+	link: [apigateway, auth, cognitoClient],
+});
+
+// User info endpoint (authenticated)
+apigateway.route(
+	"GET /api/me",
+	{
+		handler: "packages/functions/src/handlers/health.handler",
+		link: [apigateway, auth, cognitoClient],
+	},
+	{
+		auth: {
+			lambda: jwtAuthorizer.id,
+		},
+	},
+);
+
+// API documentation endpoint (public) - serves raw OpenAPI spec
+apigateway.route("GET /api/doc", {
+	handler: "packages/functions/src/handlers/openapi.handler",
 	link: [apigateway, auth, cognitoClient],
 });
 

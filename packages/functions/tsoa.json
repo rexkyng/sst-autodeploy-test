@@ -1,0 +1,32 @@
+{
+  "entryFile": "src/app.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": ["src/controllers/**/*Controller.ts"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@openauth/core/*": ["../core/src/*"]
+    }
+  },
+  "spec": {
+    "outputDirectory": "src/generated",
+    "specVersion": 3,
+    "basePath": "/api",
+    "specFileBaseName": "swagger",
+    "securityDefinitions": {
+      "jwt": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "JWT Authorization header using Bearer scheme. Example: 'Authorization: Bearer {token}'"
+      }
+    }
+  },
+  "routes": {
+    "routesDir": "src/generated",
+    "middleware": "express",
+    "basePath": "/api",
+    "authenticationModule": "src/controllers/auth.ts"
+  }
+}
+

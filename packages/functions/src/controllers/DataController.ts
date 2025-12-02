@@ -1,19 +1,39 @@
-import { MockDataGenerator } from '../data/mockData'
-import { database } from '../data/database'
+import {
+  Body,
+  Controller,
+  Post,
+  Route,
+  Response,
+  Tags,
+  SuccessResponse,
+  Security,
+} from 'tsoa'
+import { MockDataGenerator } from '../mock/data/mockData'
+import { database } from '../mock/data/database'
 import {
   StoredProcedureRequest,
   StoredProcedureResponse,
   CustomerPhone,
 } from '@openauth/core/models'
 import { ControllerError } from './errors'
+import { ErrorResponse } from './types'
 
-export class DataController {
+@Route('data')
+@Tags('Data')
+@Security('jwt')
+export class DataController extends Controller {
   private getParam(request: StoredProcedureRequest, index: number): string | undefined {
     return request.Command.Parameters[index]?.value
   }
 
+  /**
+   * Execute a stored procedure
+   */
+  @Post()
+  @SuccessResponse('200', 'Success')
+  @Response<ErrorResponse>(500, 'Internal Server Error')
   public async executeStoredProcedure(
-    request: StoredProcedureRequest,
+    @Body() request: StoredProcedureRequest,
   ): Promise<StoredProcedureResponse> {
     try {
       const procedureName = request.Command.Text
@@ -52,6 +72,7 @@ export class DataController {
       }
     } catch (error) {
       console.error('Error executing stored procedure:', error)
+      this.setStatus(500)
       throw new ControllerError(500, 'Internal server error')
     }
   }
@@ -80,7 +101,7 @@ export class DataController {
   private handleGetCustomerPhone(
     request: StoredProcedureRequest,
   ): StoredProcedureResponse {
-    const nationalId = this.getParam(request, 2)
+    const nationalId = this.getParam(request, 2) ?? ''
     const phones = database.getPhonesByNationalId(nationalId)
 
     return {
@@ -120,15 +141,15 @@ export class DataController {
 
     const newPhone: CustomerPhone = {
       PhoneId: phoneId,
-      CustomerId: customerId,
-      PhoneType: phoneType,
-      PhoneCountryCode: phoneCountryCode,
-      PhoneNumber: phoneNumber,
-      PhoneExtension: phoneExtension || '',
-      PhoneInvalidReason: phoneInvalidReason || null,
-      AccountNumber: accountNumber || '',
-      LoanSequence: loanSequence || '',
-      Role: role || '',
+      CustomerId: customerId ?? '',
+      PhoneType: parseInt(phoneType ?? '0', 10),
+      PhoneCountryCode: phoneCountryCode ?? '',
+      PhoneNumber: phoneNumber ?? '',
+      PhoneExtension: phoneExtension ?? '',
+      PhoneInvalidReason: phoneInvalidReason ?? null,
+      AccountNumber: accountNumber ?? '',
+      LoanSequence: loanSequence ?? '',
+      Role: role ?? '',
     }
 
     database.addPhone(newPhone)
@@ -153,15 +174,15 @@ export class DataController {
     const phoneInvalidReason = this.getParam(request, 9)
     const phoneId = this.getParam(request, 12)
 
-    const success = database.updatePhone(phoneId, {
-      PhoneType: phoneType,
-      PhoneCountryCode: phoneCountryCode,
-      PhoneNumber: phoneNumber,
-      PhoneExtension: phoneExtension || '',
-      PhoneInvalidReason: phoneInvalidReason || null,
-      AccountNumber: accountNumber || '',
-      LoanSequence: loanSequence || '',
-      Role: role || '',
+    const success = database.updatePhone(phoneId ?? '', {
+      PhoneType: parseInt(phoneType ?? '0', 10),
+      PhoneCountryCode: phoneCountryCode ?? '',
+      PhoneNumber: phoneNumber ?? '',
+      PhoneExtension: phoneExtension ?? '',
+      PhoneInvalidReason: phoneInvalidReason ?? null,
+      AccountNumber: accountNumber ?? '',
+      LoanSequence: loanSequence ?? '',
+      Role: role ?? '',
     })
 
     return {
@@ -174,7 +195,7 @@ export class DataController {
   private handleDeleteCustomerPhone(
     request: StoredProcedureRequest,
   ): StoredProcedureResponse {
-    const phoneId = this.getParam(request, 0)
+    const phoneId = this.getParam(request, 0) ?? ''
     const success = database.deletePhone(phoneId)
 
     return {
@@ -187,7 +208,7 @@ export class DataController {
   private handleGetFollowHistory(
     request: StoredProcedureRequest,
   ): StoredProcedureResponse {
-    const nationalId = this.getParam(request, 2)
+    const nationalId = this.getParam(request, 2) ?? ''
     const history = database.getFollowHistoryByNationalId(nationalId)
 
     return {
@@ -212,7 +233,7 @@ export class DataController {
   private handleGetContactAmendmentHistory(
     request: StoredProcedureRequest,
   ): StoredProcedureResponse {
-    const nationalId = this.getParam(request, 2)
+    const nationalId = this.getParam(request, 2) ?? ''
     const history = database.getContactAmendmentsByNationalId(nationalId)
 
     return {
@@ -310,3 +331,4 @@ export class DataController {
     }
   }
 }
+

@@ -1,6 +1,16 @@
 import { faker } from '@faker-js/faker'
-import { MockDataGenerator } from '../data/mockData'
-import { database } from '../data/database'
+import {
+  Body,
+  Controller,
+  Post,
+  Route,
+  Response,
+  Tags,
+  SuccessResponse,
+  Security,
+} from 'tsoa'
+import { MockDataGenerator } from '../mock/data/mockData'
+import { database } from '../mock/data/database'
 import {
   CustomerDetails,
   CustomerInfo,
@@ -16,8 +26,12 @@ import {
   CustomerAddress,
 } from '@openauth/core/models'
 import { ControllerError } from './errors'
+import { ErrorResponse } from './types'
 
-export class CrmController {
+@Route('crm')
+@Tags('CRM')
+@Security('jwt')
+export class CrmController extends Controller {
   private generatePhone(): string {
     return `${faker.string.numeric({ length: 1, allowLeadingZeros: false, exclude: ['1'] })}${faker.string.numeric({ length: 7, allowLeadingZeros: false })}`
   }
@@ -198,6 +212,7 @@ export class CrmController {
 
     return customerDetails
   }
+
   private findOrCreateDebtor(nationalId: string, idType: string): { debtor: Debtor; customerDetails: CustomerDetails } {
     let debtor = database.findDebtorByNationalId(nationalId)
     let customerDetails: CustomerDetails | null = null
@@ -247,8 +262,15 @@ export class CrmController {
     return { debtor, customerDetails }
   }
 
+  /**
+   * Get debtor information by national ID
+   */
+  @Post('debtor')
+  @SuccessResponse('200', 'Success')
+  @Response<ErrorResponse>(400, 'Bad Request')
+  @Response<ErrorResponse>(404, 'Not Found')
   public async getDebtorInfo(
-    request: DebtorRequest,
+    @Body() request: DebtorRequest,
   ): Promise<CustomerInfo> {
     try {
       const { debtor, customerDetails } = this.findOrCreateDebtor(request.NationalId, request.IdType)
@@ -257,6 +279,8 @@ export class CrmController {
         throw new ControllerError(404, 'Customer not found')
       }
 
+      const spousePhone = this.generatePhone()
+      const spouseCompany = this.generateCompany()
       const customerEmail = customer.Email || `${debtor.GivenName}.${debtor.Surname}@example.com`
       const customerBirthDate = customer.DateOfBirth || new Date(1985, 0, 1).toISOString()
 
@@ -299,16 +323,24 @@ export class CrmController {
       }
     } catch (error) {
       if (error instanceof ControllerError) {
+        this.setStatus(error.status)
         throw error
       }
       const errorMessage =
         error instanceof Error ? error.message : 'Unknown error'
+      this.setStatus(400)
       throw new ControllerError(400, errorMessage)
     }
   }
 
+  /**
+   * Search customers by various criteria
+   */
+  @Post('search')
+  @SuccessResponse('200', 'Success')
+  @Response<ErrorResponse>(400, 'Bad Request')
   public async searchCustomers(
-    request: SearchRequest,
+    @Body() request: SearchRequest,
   ): Promise<CustomerSearchResponse> {
     try {
       let results = database.findCustomerBySearch(request)
@@ -357,14 +389,23 @@ export class CrmController {
       }
     } catch (error) {
       if (error instanceof ControllerError) {
+        this.setStatus(error.status)
         throw error
       }
+      this.setStatus(400)
       throw new ControllerError(400, 'Invalid search parameters')
     }
   }
 
+  /**
+   * Get full customer details by national ID
+   */
+  @Post('customer')
+  @SuccessResponse('200', 'Success')
+  @Response<ErrorResponse>(400, 'Bad Request')
+  @Response<ErrorResponse>(404, 'Not Found')
   public async getCustomerDetails(
-    request: CustomerRequest,
+    @Body() request: CustomerRequest,
   ): Promise<CustomerDetailsResponse> {
     try {
       let customerDetails = database.findCustomerByNationalId(request.NationalId)
@@ -386,14 +427,22 @@ export class CrmController {
       }
     } catch (error) {
       if (error instanceof ControllerError) {
+        this.setStatus(error.status)
         throw error
       }
+      this.setStatus(400)
       throw new ControllerError(400, 'Invalid request parameters')
     }
   }
 
+  /**
+   * Submit wrapup data after a call
+   */
+  @Post('wrapup')
+  @SuccessResponse('200', 'Success')
+  @Response<ErrorResponse>(400, 'Bad Request')
   public async submitWrapup(
-    request: WrapupRequest,
+    @Body() request: WrapupRequest,
   ): Promise<WrapupResponse> {
     try {
       if (!request.CallInfo.CallResultCodeId) {
@@ -408,9 +457,12 @@ export class CrmController {
       }
     } catch (error) {
       if (error instanceof ControllerError) {
+        this.setStatus(error.status)
         throw error
       }
+      this.setStatus(400)
       throw new ControllerError(400, 'Invalid wrap-up data')
     }
   }
 }
+
