@@ -5,11 +5,8 @@ import {
   Response,
   Tags,
   SuccessResponse,
-  Request,
-  Header,
   Security,
 } from 'tsoa'
-import express from 'express'
 import { ErrorResponse } from './types'
 
 interface HealthResponse {
@@ -26,7 +23,7 @@ interface UserResponse {
 
 @Route('')
 @Tags('System')
-export class HealthController extends Controller {
+export class MainController extends Controller {
   /**
    * Health check endpoint
    */
@@ -43,20 +40,15 @@ export class HealthController extends Controller {
 
   /**
    * Get current user information
+   * Authentication is handled by API Gateway's JWT authorizer
    */
   @Get('me')
   @Security('jwt')
   @SuccessResponse('200', 'OK')
   @Response<ErrorResponse>(401, 'Unauthorized')
-  public async getMe(
-    @Request() req: express.Request,
-    @Header('Authorization') authorization?: string,
-  ): Promise<UserResponse> {
-    if (!authorization) {
-      this.setStatus(401)
-      throw new Error('Unauthorized')
-    }
-    
+  public async getMe(): Promise<UserResponse> {
+    // API Gateway validates JWT before this runs
+    // In a real implementation, user info would come from the JWT claims
     return {
       userId: '123',
       name: 'John Doe',

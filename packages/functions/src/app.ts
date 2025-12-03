@@ -6,5 +6,5 @@
 // Export controllers for tsoa to discover
 export * from './controllers/CrmController'
 export * from './controllers/DataController'
-export * from './controllers/HealthController'
+export * from './controllers/MainController'
 

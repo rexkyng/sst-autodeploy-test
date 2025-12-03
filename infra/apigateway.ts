@@ -22,4 +22,15 @@ export const apigateway = new sst.aws.ApiGatewayV2("MyApiGateway", {
 	// },
 });
 
+// API documentation endpoint (public) - serves raw OpenAPI spec
+apigateway.route("GET /api/doc/raw", {
+	handler: "packages/functions/src/handlers/openapi.handler",
+	link: [apigateway],
+});
+
+apigateway.route("GET /api/doc", {
+	handler: "packages/functions/src/handlers/openapi.uiHandler",
+	link: [apigateway],
+});
+
 // Other routes and auth config are handled in the auth.ts file

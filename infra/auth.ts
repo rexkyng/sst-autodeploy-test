@@ -27,38 +27,6 @@ const jwtAuthorizer = apigateway.addAuthorizer({
 	},
 });
 
-// API routes - per-endpoint Lambda handlers with TSOA
-
-// CORS preflight handlers (no auth required)
-// apigateway.route("OPTIONS /api/crm/debtor", {
-// 	handler: "packages/functions/src/handlers/debtor.handler",
-// 	link: [apigateway, auth, cognitoClient],
-// });
-// apigateway.route("OPTIONS /api/crm/search", {
-// 	handler: "packages/functions/src/handlers/search.handler",
-// 	link: [apigateway, auth, cognitoClient],
-// });
-// apigateway.route("OPTIONS /api/crm/customer", {
-// 	handler: "packages/functions/src/handlers/customer.handler",
-// 	link: [apigateway, auth, cognitoClient],
-// });
-// apigateway.route("OPTIONS /api/crm/wrapup", {
-// 	handler: "packages/functions/src/handlers/wrapup.handler",
-// 	link: [apigateway, auth, cognitoClient],
-// });
-// apigateway.route("OPTIONS /api/data", {
-// 	handler: "packages/functions/src/handlers/data.handler",
-// 	link: [apigateway, auth, cognitoClient],
-// });
-// apigateway.route("OPTIONS /api/health", {
-// 	handler: "packages/functions/src/handlers/health.handler",
-// 	link: [apigateway, auth, cognitoClient],
-// });
-// apigateway.route("OPTIONS /api/me", {
-// 	handler: "packages/functions/src/handlers/health.handler",
-// 	link: [apigateway, auth, cognitoClient],
-// });
-
 // CRM endpoints (authenticated)
 apigateway.route(
 	"POST /api/crm/debtor",
@@ -125,7 +93,7 @@ apigateway.route(
 
 // Public endpoints
 apigateway.route("GET /api/health", {
-	handler: "packages/functions/src/handlers/health.handler",
+	handler: "packages/functions/src/handlers/main.handler",
 	link: [apigateway, auth, cognitoClient],
 });
 
@@ -133,7 +101,7 @@ apigateway.route("GET /api/health", {
 apigateway.route(
 	"GET /api/me",
 	{
-		handler: "packages/functions/src/handlers/health.handler",
+		handler: "packages/functions/src/handlers/main.handler",
 		link: [apigateway, auth, cognitoClient],
 	},
 	{
@@ -142,12 +110,6 @@ apigateway.route(
 		},
 	},
 );
-
-// API documentation endpoint (public) - serves raw OpenAPI spec
-apigateway.route("GET /api/doc", {
-	handler: "packages/functions/src/handlers/openapi.handler",
-	link: [apigateway, auth, cognitoClient],
-});
 
 // Catch-all route - everything else (not under /api) goes to auth
 // This handles any other auth endpoints we might have missed
