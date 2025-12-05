@@ -11,7 +11,7 @@ import { FollowHistoryDialog } from "@/components/dialogs/alert-dialogs";
 import { AddPhoneDialog } from "@/components/dialogs/add-phone-dialog";
 import { EditPhoneDialog } from "@/components/dialogs/edit-phone-dialog";
 import { HistoryCard } from "@/components/card/history-card";
-import type { FollowHistory } from "@openauth/core/models";
+import type { FollowHistory } from "@openauth/api";
 import { StartIE } from "@/lib/external-integrations";
 import { crmAPI } from "@/api/crm-api";
 import { getQueryStringObject } from "@/lib/query-string";

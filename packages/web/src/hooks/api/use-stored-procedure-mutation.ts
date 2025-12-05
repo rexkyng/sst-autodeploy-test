@@ -1,18 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
-import { crmAPI } from '../../api/crm-api';
-
-interface StoredProcedureParams {
-  Provider: string;
-  Command: {
-    Text: string;
-    Type: string;
-    Parameters: any[];
-  };
-}
+import { crmAPI, type StoredProcedureRequest } from '../../api/crm-api';
 
 export function useStoredProcedureMutation() {
   return useMutation({
-    mutationFn: (params: StoredProcedureParams) => crmAPI.executeStoredProcedure(params),
+    mutationFn: (params: StoredProcedureRequest) => crmAPI.executeStoredProcedure(params),
   });
 }
 

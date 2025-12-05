@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AccountCard } from "@/components/card/account-card";
 import { FollowHistoryDialog } from "@/components/dialogs/alert-dialogs";
 import { HistoryCard } from "@/components/card/history-card";
-import type { FollowHistory } from "@openauth/core/models";
+import type { FollowHistory } from "@openauth/api";
 import { useCRMStore } from "@/store/crm-store";
 
 interface FollowHistoryPageProps {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import type { Debtor } from "@openauth/core/models";
+import type { Debtor } from "@openauth/api";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";

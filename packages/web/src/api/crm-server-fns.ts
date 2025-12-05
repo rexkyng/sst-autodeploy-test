@@ -1,24 +1,25 @@
 import { createServerFn } from "@tanstack/react-start";
 import { useAppSession } from "../utils/session";
 import { auth } from "../server/auth";
-import type {
-  SearchRequest,
-  WrapupRequest,
-  StoredProcedureRequest,
-  StoredProcedureResponse,
-  CustomerInfo,
-  CustomerSearchResponse,
-  WrapupResponse,
-  CustomerDetailsResponse,
-} from "@openauth/core/models";
+import {
+  Api,
+  type SearchRequest,
+  type WrapupRequest,
+  type StoredProcedureRequest,
+  type StoredProcedureResponse,
+  type CustomerInfo,
+  type CustomerSearchResponse,
+  type WrapupResponse,
+  type CustomerDetailsResponse,
+} from "@openauth/api";
 
 // Helper to get API URL
-const GetAPIUrl = () => {
+const getApiUrl = () => {
   return import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 };
 
-// Helper to get authenticated headers
-async function getAuthHeaders() {
+// Helper to create authenticated API client
+async function createAuthenticatedApi() {
   const session = await useAppSession();
   
   // Ensure token is fresh
@@ -30,68 +31,59 @@ async function getAuthHeaders() {
     throw new Error("Not authenticated");
   }
 
-  return {
-    "Content-Type": "application/json",
-    "Authorization": `Bearer ${freshTokens.access}`,
-  };
-}
-
-// Shared helper for CRM API calls
-async function callCrm<T>(endpoint: string, body: any): Promise<T> {
-  const API_URL = GetAPIUrl();
-  const headers = await getAuthHeaders();
-  
-  const response = await fetch(`${API_URL}${endpoint}`, {
-    method: "POST",
-    headers,
-    body: JSON.stringify(body),
+  return new Api({
+    baseUrl: getApiUrl(),
+    securityWorker: () => ({
+      headers: { Authorization: `Bearer ${freshTokens.access}` }
+    })
   });
-  
-  if (!response.ok) {
-    const errorText = await response.text();
-    console.error(`[API] Request failed. URL: ${API_URL}${endpoint}, Status: ${response.status}, Response: ${errorText}`);
-    throw new Error(`API Error: ${response.status} ${errorText}`);
-  }
-  
-  return response.json() as Promise<T>;
 }
 
 export const getCustomerFn = createServerFn({ method: "POST" })
   .inputValidator((data: { tenantName: string; idType: string; nationalId: string; forceLatest?: boolean }) => data)
-  .handler(async ({ data }) => {
-    return callCrm<CustomerDetailsResponse>('/crm/customer', {
+  .handler(async ({ data }): Promise<CustomerDetailsResponse> => {
+    const api = await createAuthenticatedApi();
+    const response = await api.crm.getCustomerDetailsEndpoint({
       Tenant: data.tenantName,
       IdType: data.idType,
       NationalId: data.nationalId,
       ForceLatest: data.forceLatest ?? false,
     });
+    return response.data;
   });
 
 export const searchCustomersFn = createServerFn({ method: "POST" })
   .inputValidator((params: SearchRequest) => params)
-  .handler(async ({ data: params }) => {
-    return callCrm<CustomerSearchResponse>('/crm/search', params);
+  .handler(async ({ data: params }): Promise<CustomerSearchResponse> => {
+    const api = await createAuthenticatedApi();
+    const response = await api.crm.searchCustomersEndpoint(params);
+    return response.data;
   });
 
 export const submitWrapupFn = createServerFn({ method: "POST" })
   .inputValidator((params: WrapupRequest) => params)
-  .handler(async ({ data: params }) => {
-    return callCrm<WrapupResponse>('/crm/wrapup', params);
+  .handler(async ({ data: params }): Promise<WrapupResponse> => {
+    const api = await createAuthenticatedApi();
+    const response = await api.crm.submitWrapupEndpoint(params);
+    return response.data;
   });
 
 export const getDebtorFn = createServerFn({ method: "POST" })
   .inputValidator((data: { tenant: string; idType: string; nationalId: string }) => data)
-  .handler(async ({ data }) => {
-    return callCrm<CustomerInfo>('/crm/debtor', {
+  .handler(async ({ data }): Promise<CustomerInfo> => {
+    const api = await createAuthenticatedApi();
+    const response = await api.crm.getDebtorInfoEndpoint({
       Tenant: data.tenant,
       IdType: data.idType,
       NationalId: data.nationalId,
     });
+    return response.data;
   });
 
 export const executeStoredProcedureFn = createServerFn({ method: "POST" })
   .inputValidator((params: StoredProcedureRequest) => params)
-  .handler(async ({ data: params }) => {
-    return callCrm<StoredProcedureResponse>('/data', params);
+  .handler(async ({ data: params }): Promise<StoredProcedureResponse> => {
+    const api = await createAuthenticatedApi();
+    const response = await api.data.executeStoredProcedureEndpoint(params);
+    return response.data;
   });
-

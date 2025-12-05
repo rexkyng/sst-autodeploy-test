@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import type { Loan } from "@openauth/core/models";
+import type { Loan } from "@openauth/api";
 import { Calculator, FileText } from "lucide-react";
 import { toHKD, toLocaleString } from "@/lib/formatters";
 import { useTableInteraction } from "@/hooks/use-table-interaction";

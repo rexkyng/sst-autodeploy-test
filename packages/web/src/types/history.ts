@@ -1,8 +1,8 @@
-// Re-export core types
+// Re-export API types
 export type {
   FollowHistory,
   ContactAmendmentHistory,
-} from "@openauth/core/models";
+} from "@openauth/api";
 
 // Web-specific ReminderHistory with different field names
 export interface ReminderHistory {

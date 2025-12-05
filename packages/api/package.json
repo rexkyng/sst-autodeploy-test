@@ -1,0 +1,14 @@
+{
+  "name": "@openauth/api",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/api.ts"
+  },
+  "scripts": {
+    "generate": "swagger-typescript-api generate -p ./swagger/swagger.json -o ./src --name api.ts"
+  },
+  "devDependencies": {
+    "swagger-typescript-api": "^13.0.0"
+  }
+}

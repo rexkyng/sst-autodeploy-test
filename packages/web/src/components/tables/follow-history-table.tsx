@@ -1,6 +1,6 @@
 import { useMemo } from "react"
 import { ColumnDef } from "@tanstack/react-table"
-import type { FollowHistory } from "@openauth/core/models"
+import type { FollowHistory } from "@openauth/api"
 import { DataTableColumnHeader } from "@/components/data-table"
 import { Button } from "@/components/ui/button"
 import { Volume2 } from "lucide-react"

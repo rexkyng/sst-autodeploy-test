@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react"
 import { ColumnDef } from "@tanstack/react-table"
-import type { Debtor } from "@openauth/core/models"
+import type { Debtor } from "@openauth/api"
 import { PhoneType } from "@/types/phone"
 import { useTableInteraction } from "@/hooks/use-table-interaction"
 import { Button } from "@/components/ui/button"

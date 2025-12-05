@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Debtor } from "@openauth/core/models";
+import type { Debtor } from "@openauth/api";
 import { crmAPI } from "../api/crm-api";
 import { useCRMStore } from "../store/crm-store";
 import { getQueryStringObject } from "../lib/query-string";

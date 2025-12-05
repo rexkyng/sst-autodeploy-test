@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toHKD } from "@/lib/formatters";
 // CustomerResidential and DebtorCustomerInfo are web-specific
-import type { CustomerAddress, CustomerInfo } from "@openauth/core/models";
+import type { CustomerAddress, CustomerInfo } from "@openauth/api";
 
 // Web-specific extension for residential information
 export interface CustomerResidential extends CustomerAddress {

@@ -1,5 +1,5 @@
-// Re-export core CustomerPhone type
-export type { CustomerPhone } from "@openauth/core/models";
+// Re-export API CustomerPhone type
+export type { CustomerPhone } from "@openauth/api";
 
 // Phone type enums matching the Vue application (web-specific)
 export enum PhoneType {

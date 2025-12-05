@@ -2,18 +2,15 @@
 // Ported from Refine data provider
 
 import type {
-  DebtorRequest,
   SearchRequest,
-  CustomerRequest,
-  WrapupRequest,
   StoredProcedureRequest,
   StoredProcedureResponse,
-  CustomerDetails,
   CustomerInfo,
   CustomerSearchResponse,
   WrapupResponse,
   CustomerDetailsResponse,
-} from "@openauth/core/models";
+  WrapupRequest,
+} from "@openauth/api";
 import {
   getCustomerFn,
   searchCustomersFn,
@@ -66,3 +63,15 @@ export const crmAPI = {
     return await executeStoredProcedureFn({ data: params });
   },
 };
+
+// Re-export types for convenience
+export type {
+  SearchRequest,
+  StoredProcedureRequest,
+  StoredProcedureResponse,
+  CustomerInfo,
+  CustomerSearchResponse,
+  WrapupResponse,
+  CustomerDetailsResponse,
+  WrapupRequest,
+} from "@openauth/api";

@@ -1,13 +1,13 @@
-// Re-export core types and define web-specific extensions
+// Re-export API types and define web-specific extensions
 export type {
-  CustomerDetails,
   CustomerInfo,
   Debtor,
   Loan,
   Reference,
-} from "@openauth/core/models";
+  CustomerAddress,
+} from "@openauth/api";
 
-import type { CustomerAddress } from "@openauth/core/models";
+import type { CustomerAddress } from "@openauth/api";
 
 // Web-specific extensions for business and residential information
 export interface CustomerBusiness extends CustomerAddress {
@@ -36,4 +36,4 @@ export interface CustomerResidential extends CustomerAddress {
 }
 
 // DebtorCustomerInfo is an alias for CustomerInfo
-export type { CustomerInfo as DebtorCustomerInfo } from "@openauth/core/models";
+export type { CustomerInfo as DebtorCustomerInfo } from "@openauth/api";

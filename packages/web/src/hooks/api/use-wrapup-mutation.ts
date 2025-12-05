@@ -1,17 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { crmAPI } from '../../api/crm-api';
-
-interface WrapupParams {
-  TenantName: string;
-  IsAdhocSearch: boolean;
-  CallInfo: any;
-}
+import { crmAPI, type WrapupRequest } from '../../api/crm-api';
 
 export function useWrapupMutation() {
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: (params: WrapupParams) => crmAPI.submitWrapup(params),
+    mutationFn: (params: WrapupRequest) => crmAPI.submitWrapup(params),
     onSuccess: () => {
       // Invalidate customer queries to refresh data after wrapup
       queryClient.invalidateQueries({ queryKey: ['customer'] });

@@ -9,8 +9,6 @@ export const auth = createServerFn({ method: "GET" }).handler(async () => {
     const session = await useAppSession();
     const tokens = session.data;
 
-    console.log("[AUTH] Checking session, has tokens:", !!tokens?.access);
-
     if (!tokens?.access) {
       return null;
     }
@@ -22,7 +20,7 @@ export const auth = createServerFn({ method: "GET" }).handler(async () => {
 
       if (verified.err) {
         // console.log("[AUTH] Token verification failed:", verified.err);
-        console.log("[AUTH] User verification failed, clearing session...");
+        // console.log("[AUTH] User verification failed, clearing session...");
         await session.clear();
         return null;
       }
@@ -35,7 +33,6 @@ export const auth = createServerFn({ method: "GET" }).handler(async () => {
       }
 
       // console.log("[AUTH] User authenticated:", verified.subject?.properties?.id);
-      console.log("[AUTH] User authenticated:", verified.subject?.properties?.id);
       return verified.subject;
     } catch (err) {
       // console.log("[AUTH] Verify threw error:", err);

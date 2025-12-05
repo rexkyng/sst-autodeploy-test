@@ -8,7 +8,7 @@ import { DebtorInformationTable } from "@/components/tables/debtor-information-t
 import { useCRMStore } from "@/store/crm-store";
 import { useDebtorSelection } from "@/hooks/use-debtor-selection";
 import { formatDate2, toHKD } from "@/lib/formatters";
-import type { Debtor, CustomerInfo } from "@openauth/core/models";
+import type { Debtor, CustomerInfo } from "@openauth/api";
 import type { CustomerBusiness } from "@/components/card/business-information-card";
 import type { CustomerResidential, DebtorCustomerInfo } from "@/components/card/residential-information-card";
 import { cn } from "@/lib/utils";

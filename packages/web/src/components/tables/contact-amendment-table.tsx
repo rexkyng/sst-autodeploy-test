@@ -1,6 +1,6 @@
 import { useMemo } from "react"
 import { ColumnDef } from "@tanstack/react-table"
-import type { ContactAmendmentHistory } from "@openauth/core/models"
+import type { ContactAmendmentHistory } from "@openauth/api"
 import { formatDate, toPhoneTypeString } from "@/lib/formatters"
 import { useCRMStore } from "@/store/crm-store"
 import { DataTable } from "@/components/data-table"

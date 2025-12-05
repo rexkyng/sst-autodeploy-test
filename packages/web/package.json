@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^10.0.0",
+    "@openauth/api": "*",
     "@openauth/core": "*",
     "@openauthjs/openauth": "^0.4.3",
     "@radix-ui/react-alert-dialog": "^1.1.15",

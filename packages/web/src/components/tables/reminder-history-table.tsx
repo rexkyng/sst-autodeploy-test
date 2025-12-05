@@ -1,6 +1,6 @@
 import { useMemo } from "react"
 import { ColumnDef } from "@tanstack/react-table"
-import type { ReminderHistory as CoreReminderHistory } from "@openauth/core/models";
+import type { ReminderHistory as CoreReminderHistory } from "@openauth/api";
 
 // Web-specific ReminderHistory with different field names
 export interface ReminderHistory {

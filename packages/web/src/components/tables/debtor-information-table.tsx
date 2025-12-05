@@ -1,4 +1,4 @@
-import type { Debtor } from "@openauth/core/models";
+import type { Debtor } from "@openauth/api";
 import {
   Table,
   TableBody,

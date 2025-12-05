@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatDate2, toHKD } from "@/lib/formatters";
 // CustomerBusiness is web-specific, extending CustomerAddress from core
-import type { CustomerAddress } from "@openauth/core/models";
+import type { CustomerAddress } from "@openauth/api";
 
 // Web-specific extension for business information
 export interface CustomerBusiness extends CustomerAddress {

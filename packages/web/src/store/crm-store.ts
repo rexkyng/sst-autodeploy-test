@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import type {
-  CustomerDetails,
+  CustomerDetailsResponse,
   Debtor,
   Loan,
   FollowHistory,
@@ -8,11 +8,11 @@ import type {
   CallResultCode,
   FollowStatusCode,
   CustomerPhone,
-} from "@openauth/core/models";
+} from "@openauth/api";
 import type { ActionList } from "../types/action";
 
 // Type aliases for compatibility
-type Customer = CustomerDetails["Customer"];
+type Customer = CustomerDetailsResponse["Customer"];
 
 // Web-specific ReminderHistory with different field names
 export interface ReminderHistory {

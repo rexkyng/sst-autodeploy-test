@@ -1,8 +1,8 @@
-// Re-export core types
+// Re-export API types
 export type {
   CallResultCode,
   FollowStatusCode,
-} from "@openauth/core/models";
+} from "@openauth/api";
 
 // Web-specific code types (these may be Record<string, any> in core)
 export interface ActionCode {

@@ -1,5 +1,5 @@
 import React from "react";
-import type { Debtor } from "@openauth/core/models";
+import type { Debtor } from "@openauth/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SpouseInformation } from "@/components/custom/spouse-information";
 

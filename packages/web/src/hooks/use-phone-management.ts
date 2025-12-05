@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCRMStore } from "../store/crm-store";
 import { crmAPI } from "../api/crm-api";
 import { getQueryStringObject, queryKeys } from "../lib/query-string";
-import type { CustomerPhone as CoreCustomerPhone } from "@openauth/core/models";
+import type { CustomerPhone as CoreCustomerPhone } from "@openauth/api";
 
 // Web-specific CustomerPhone with optional Id
 export type CustomerPhone = Omit<CoreCustomerPhone, "PhoneId"> & {
