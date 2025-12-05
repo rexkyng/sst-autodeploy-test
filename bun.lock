@@ -16,11 +16,13 @@
       "name": "@openauth/core",
       "version": "0.0.0",
       "dependencies": {
+        "@faker-js/faker": "^10.0.0",
         "@openauthjs/openauth": "^0.4.3",
         "sst": "*",
         "valibot": "^1.2.0",
       },
       "devDependencies": {
+        "@types/node": "^24.10.1",
         "vitest": "^2",
       },
     },
@@ -28,20 +30,13 @@
       "name": "@openauth/functions",
       "version": "0.0.0",
       "dependencies": {
-        "@faker-js/faker": "^10.0.0",
         "@openauth/core": "*",
+        "@openauth/tsoa": "*",
         "@openauthjs/openauth": "^0.3.6",
-        "@tsoa/runtime": "^6.4.0",
-        "cors": "^2.8.5",
-        "express": "^4.21.0",
-        "serverless-http": "^3.2.0",
         "sst": "*",
-        "tsoa": "^6.4.0",
       },
       "devDependencies": {
         "@types/aws-lambda": "^8",
-        "@types/cors": "^2.8.17",
-        "@types/express": "^4.17.21",
         "@types/node": "^24.10.1",
       },
     },
@@ -55,6 +50,24 @@
       "devDependencies": {
         "@types/node": "^22",
         "tsx": "^4",
+      },
+    },
+    "packages/tsoa": {
+      "name": "@openauth/tsoa",
+      "version": "0.0.0",
+      "dependencies": {
+        "@openauth/core": "*",
+        "@tsoa/runtime": "^6.4.0",
+        "cors": "^2.8.5",
+        "express": "^4.21.0",
+        "serverless-http": "^3.2.0",
+        "tsoa": "^6.4.0",
+      },
+      "devDependencies": {
+        "@types/aws-lambda": "^8",
+        "@types/cors": "^2.8.17",
+        "@types/express": "^4.17.21",
+        "@types/node": "^24.10.1",
       },
     },
     "packages/web": {
@@ -416,6 +429,8 @@
     "@openauth/functions": ["@openauth/functions@workspace:packages/functions"],
 
     "@openauth/scripts": ["@openauth/scripts@workspace:packages/scripts"],
+
+    "@openauth/tsoa": ["@openauth/tsoa@workspace:packages/tsoa"],
 
     "@openauthjs/openauth": ["@openauthjs/openauth@0.4.3", "", { "dependencies": { "@standard-schema/spec": "1.0.0-beta.3", "aws4fetch": "1.0.20", "jose": "5.9.6" }, "peerDependencies": { "arctic": "^2.2.2", "hono": "^4.0.0" } }, "sha512-RlnjqvHzqcbFVymEwhlUEuac4utA5h4nhSK/i2szZuQmxTIqbGUxZ+nM+avM+VV4Ing+/ZaNLKILoXS3yrkOOw=="],
 

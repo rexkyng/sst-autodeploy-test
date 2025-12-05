@@ -1,0 +1,30 @@
+{
+  "name": "@openauth/tsoa",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "tsoa:spec": "tsoa spec",
+    "tsoa:routes": "tsoa routes",
+    "tsoa:build": "tsoa spec && tsoa routes",
+    "dev": "node --loader ts-node/esm src/server.ts"
+  },
+  "exports": {
+    "./generated/swagger.json": "./src/generated/swagger.json",
+    "./app": "./src/app.ts",
+    "./generated/routes": "./src/generated/routes.ts"
+  },
+  "dependencies": {
+    "@openauth/core": "*",
+    "@tsoa/runtime": "^6.4.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "serverless-http": "^3.2.0",
+    "tsoa": "^6.4.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^24.10.1"
+  }
+}

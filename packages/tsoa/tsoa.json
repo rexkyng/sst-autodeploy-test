@@ -9,7 +9,7 @@
     }
   },
   "spec": {
-    "outputDirectory": "src/generated",
+    "outputDirectory": "../api/swagger",
     "specVersion": 3,
     "basePath": "/api",
     "specFileBaseName": "swagger",
@@ -23,7 +23,7 @@
     }
   },
   "routes": {
-    "routesDir": "src/generated",
+    "routesDir": "../api/swagger",
     "middleware": "express",
     "basePath": "/api",
     "authenticationModule": "src/controllers/auth.ts"

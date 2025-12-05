@@ -5,7 +5,7 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "cd packages/functions && bun run tsoa:build && cd ../.. && sst dev"
+    "dev": "cd packages/tsoa && bun run tsoa:build && cd ../.. && sst dev"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22",

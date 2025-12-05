@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 // Path to the generated OpenAPI spec from TSOA
-export const openapiSpecPath = "packages/functions/src/generated/swagger.json";
+export const openapiSpecPath = "packages/api/swagger/swagger.json";
 
 // Read the OpenAPI spec as a string (required by AWS API Gateway)
 const openapiSpecString = fs.readFileSync(path.resolve(openapiSpecPath), "utf-8");

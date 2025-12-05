@@ -20,7 +20,7 @@ export const handler: Handler<
 	APIGatewayProxyResult
 > = async () => {
 	try {
-		const spec = await import("../generated/swagger.json", {
+		const spec = await import("@openauth/tsoa/generated/swagger.json", {
 			with: { type: "json" },
 		});
 		spec.default.servers = apiUrls;

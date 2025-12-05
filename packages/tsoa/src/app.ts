@@ -7,8 +7,8 @@ import express, {
 } from 'express'
 import cors from 'cors'
 import { ValidateError } from 'tsoa'
-import { RegisterRoutes } from '../../generated/routes'
-import { ensureDatabaseInitialized } from './database-init'
+import { RegisterRoutes } from './generated/routes'
+import { ensureDatabaseInitialized } from '@openauth/core/functions'
 
 export function createApp(): express.Express {
   // Initialize database on cold start

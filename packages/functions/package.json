@@ -2,26 +2,14 @@
   "name": "@openauth/functions",
   "version": "0.0.0",
   "type": "module",
-  "scripts": {
-    "tsoa:spec": "tsoa spec",
-    "tsoa:routes": "tsoa routes",
-    "tsoa:build": "tsoa spec && tsoa routes"
-  },
   "dependencies": {
-    "@faker-js/faker": "^10.0.0",
     "@openauth/core": "*",
+    "@openauth/tsoa": "*",
     "@openauthjs/openauth": "^0.3.6",
-    "@tsoa/runtime": "^6.4.0",
-    "cors": "^2.8.5",
-    "express": "^4.21.0",
-    "serverless-http": "^3.2.0",
-    "sst": "*",
-    "tsoa": "^6.4.0"
+    "sst": "*"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8",
-    "@types/cors": "^2.8.17",
-    "@types/express": "^4.17.21",
     "@types/node": "^24.10.1"
   }
 }

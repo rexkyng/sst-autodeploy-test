@@ -8,7 +8,7 @@ import {
   Debtor,
   Reference,
   SearchRequest,
-} from '@openauth/core/models'
+} from '../../models'
 
 interface DatabaseSchema {
   customers: Map<string, CustomerDetails> // key: NationalId

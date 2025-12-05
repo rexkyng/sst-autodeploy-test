@@ -15,7 +15,7 @@ import {
   Debtor,
   Reference,
   SearchRequest,
-} from '@openauth/core/models'
+} from '../../models'
 
 export class MockDataGenerator {
   private static customerCounter = 1
@@ -762,7 +762,7 @@ export class MockDataGenerator {
     return faker.internet.email({ firstName, lastName })
   }
 
-  private static generatePhoneNumber(): string {
+  static generatePhoneNumber(): string {
     return faker.string.numeric({ length: 8, allowLeadingZeros: false })
   }
 
@@ -851,16 +851,16 @@ export class MockDataGenerator {
     return relationships[Math.floor(Math.random() * relationships.length)]
   }
 
-  private static generateCompanyName(): string {
+  static generateCompanyName(): string {
     return faker.company.name()
   }
 
-  private static generatePosition(): string {
+  static generatePosition(): string {
     const positions = ['Manager', 'Director', 'Supervisor', 'Clerk', 'Analyst']
     return positions[Math.floor(Math.random() * positions.length)]
   }
 
-  private static generateAddress(): string {
+  static generateAddress(): string {
     return faker.location.streetAddress() + ', Hong Kong'
   }
 

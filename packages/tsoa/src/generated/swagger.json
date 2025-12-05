@@ -1,0 +1,1622 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"HealthResponse": {
+				"properties": {
+					"status": {
+						"type": "string"
+					},
+					"timestamp": {
+						"type": "string"
+					},
+					"service": {
+						"type": "string"
+					},
+					"version": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"status",
+					"timestamp",
+					"service",
+					"version"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserResponse": {
+				"properties": {
+					"userId": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"userId",
+					"name"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ErrorResponse": {
+				"description": "Shared types for TSOA controllers",
+				"properties": {
+					"error": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"error"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"StoredProcedureResponse": {
+				"properties": {
+					"Result": {
+						"properties": {
+							"Column1": {
+								"type": "string"
+							},
+							"Table1": {
+								"items": {},
+								"type": "array"
+							},
+							"Table": {
+								"items": {},
+								"type": "array"
+							}
+						},
+						"type": "object"
+					},
+					"Parameters": {
+						"items": {},
+						"type": "array"
+					},
+					"error": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"StoredProcedureRequest": {
+				"properties": {
+					"Provider": {
+						"type": "string"
+					},
+					"Command": {
+						"properties": {
+							"Parameters": {
+								"items": {},
+								"type": "array"
+							},
+							"Type": {
+								"type": "string"
+							},
+							"Text": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"Parameters",
+							"Type",
+							"Text"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"Provider",
+					"Command"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CustomerAddress": {
+				"properties": {
+					"CustomerId": {
+						"type": "string"
+					},
+					"AddressType": {
+						"type": "string"
+					},
+					"AddressLine1": {
+						"type": "string"
+					},
+					"AddressLine2": {
+						"type": "string"
+					},
+					"AddressLine3": {
+						"type": "string"
+					},
+					"AddressLine4": {
+						"type": "string"
+					},
+					"PhoneNumber": {
+						"type": "string"
+					},
+					"PhoneCountryCode": {
+						"type": "string"
+					},
+					"PhoneExtension": {
+						"type": "string"
+					},
+					"Country": {
+						"type": "string"
+					},
+					"PostalCode": {
+						"type": "string"
+					},
+					"Address": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"CustomerId",
+					"AddressType",
+					"AddressLine1",
+					"AddressLine2",
+					"AddressLine3",
+					"AddressLine4",
+					"PhoneNumber",
+					"Country",
+					"PostalCode"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CustomerInfo": {
+				"properties": {
+					"CustomerBusinesses": {
+						"items": {
+							"$ref": "#/components/schemas/CustomerAddress"
+						},
+						"type": "array"
+					},
+					"CustomerResidentials": {
+						"items": {
+							"$ref": "#/components/schemas/CustomerAddress"
+						},
+						"type": "array"
+					},
+					"SpouseBusinessPhoneCountryCode": {
+						"type": "string"
+					},
+					"SpouseBusinessPhoneNumber": {
+						"type": "string"
+					},
+					"SpouseCompanyAddress": {
+						"type": "string"
+					},
+					"SpouseAge": {
+						"type": "string"
+					},
+					"SpouseCompanyName": {
+						"type": "string"
+					},
+					"SpouseComplain": {
+						"type": "string",
+						"nullable": true
+					},
+					"SpouseMobilePhoneCountryCode": {
+						"type": "string"
+					},
+					"SpouseMobilePhoneNumber": {
+						"type": "string"
+					},
+					"SpouseName": {
+						"type": "string"
+					},
+					"SpouseNameChinese": {
+						"type": "string"
+					},
+					"SpouseNickname": {
+						"type": "string"
+					},
+					"SpousePosition": {
+						"type": "string"
+					},
+					"OverseasWorkerLoanAddress": {
+						"type": "string"
+					},
+					"OverseasWorkerLoanDependantName": {
+						"type": "string"
+					},
+					"OverseasWorkerLoanEmployerName": {
+						"type": "string"
+					},
+					"OverseasWorkerLoanEmployerPhone": {
+						"type": "string"
+					},
+					"OverseasWorkerLoanPhoneNumber": {
+						"type": "string"
+					},
+					"OverseasWorkerLoanRelationship": {
+						"type": "string"
+					},
+					"GivenName": {
+						"type": "string"
+					},
+					"Surname": {
+						"type": "string"
+					},
+					"GivenNameChinese": {
+						"type": "string"
+					},
+					"SurnameChinese": {
+						"type": "string"
+					},
+					"Id": {
+						"type": "string"
+					},
+					"NationalIdType": {
+						"type": "string"
+					},
+					"DateOfMatch": {
+						"type": "string"
+					},
+					"PartialIdMatched": {
+						"type": "boolean"
+					},
+					"Nationality": {
+						"type": "string"
+					},
+					"MaritalStatus": {
+						"type": "string"
+					},
+					"DateOfBirth": {
+						"type": "string"
+					},
+					"Email": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"CustomerBusinesses",
+					"CustomerResidentials",
+					"SpouseBusinessPhoneCountryCode",
+					"SpouseBusinessPhoneNumber",
+					"SpouseCompanyAddress",
+					"SpouseAge",
+					"SpouseCompanyName",
+					"SpouseComplain",
+					"SpouseMobilePhoneCountryCode",
+					"SpouseMobilePhoneNumber",
+					"SpouseName",
+					"SpouseNameChinese",
+					"SpouseNickname",
+					"SpousePosition",
+					"OverseasWorkerLoanAddress",
+					"OverseasWorkerLoanDependantName",
+					"OverseasWorkerLoanEmployerName",
+					"OverseasWorkerLoanEmployerPhone",
+					"OverseasWorkerLoanPhoneNumber",
+					"OverseasWorkerLoanRelationship",
+					"GivenName",
+					"Surname",
+					"GivenNameChinese",
+					"SurnameChinese",
+					"Id",
+					"NationalIdType",
+					"DateOfMatch",
+					"PartialIdMatched",
+					"Nationality",
+					"MaritalStatus",
+					"DateOfBirth",
+					"Email"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DebtorRequest": {
+				"properties": {
+					"Tenant": {
+						"type": "string"
+					},
+					"IdType": {
+						"type": "string"
+					},
+					"NationalId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"IdType",
+					"NationalId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CustomerSearchResponse": {
+				"properties": {
+					"Customer": {
+						"items": {
+							"properties": {
+								"GivenName": {
+									"type": "string"
+								},
+								"Surname": {
+									"type": "string"
+								},
+								"Nickname": {
+									"type": "string"
+								},
+								"NationalId": {
+									"type": "string"
+								},
+								"NationalIdType": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"GivenName",
+								"Surname",
+								"Nickname",
+								"NationalId",
+								"NationalIdType"
+							],
+							"type": "object"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"Customer"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SearchRequest": {
+				"properties": {
+					"Tenant": {
+						"type": "string"
+					},
+					"AccountNumber": {
+						"type": "string",
+						"nullable": true
+					},
+					"LoanSequence": {
+						"type": "string",
+						"nullable": true
+					},
+					"NationalIdType": {
+						"type": "string",
+						"nullable": true
+					},
+					"NationalId": {
+						"type": "string",
+						"nullable": true
+					},
+					"Surname": {
+						"type": "string",
+						"nullable": true
+					},
+					"GivenName": {
+						"type": "string",
+						"nullable": true
+					},
+					"ReferenceName": {
+						"type": "string",
+						"nullable": true
+					},
+					"CompanyName": {
+						"type": "string",
+						"nullable": true
+					},
+					"PhoneNumber": {
+						"type": "string",
+						"nullable": true
+					},
+					"ReferencePhoneNumber": {
+						"type": "string",
+						"nullable": true
+					},
+					"CustomerId": {
+						"type": "string",
+						"nullable": true
+					},
+					"AgentId": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": [
+					"Tenant"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Reference": {
+				"properties": {
+					"Role": {
+						"type": "string"
+					},
+					"GivenName": {
+						"type": "string"
+					},
+					"Surname": {
+						"type": "string"
+					},
+					"GivenNameChinese": {
+						"type": "string"
+					},
+					"SurnameChinese": {
+						"type": "string"
+					},
+					"Age": {
+						"type": "number",
+						"format": "double"
+					},
+					"RelationshipCode": {
+						"type": "string"
+					},
+					"MobilePhoneNumber": {
+						"type": "string"
+					},
+					"MobilePhoneCountryCode": {
+						"type": "string"
+					},
+					"ResidentialPhoneNumber": {
+						"type": "string"
+					},
+					"ResidentialPhoneCountryCode": {
+						"type": "string"
+					},
+					"BusinessPhoneNumber": {
+						"type": "string"
+					},
+					"BusinessPhoneCountryCode": {
+						"type": "string"
+					},
+					"OtherPhoneNumber": {
+						"type": "string"
+					},
+					"OtherPhoneCountryCode": {
+						"type": "string"
+					},
+					"Company": {
+						"type": "string"
+					},
+					"Position": {
+						"type": "string"
+					},
+					"HasActiveLoans": {
+						"type": "boolean"
+					},
+					"CustomerId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"Role",
+					"GivenName",
+					"Surname",
+					"MobilePhoneNumber",
+					"ResidentialPhoneNumber",
+					"BusinessPhoneNumber",
+					"OtherPhoneNumber"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Debtor": {
+				"properties": {
+					"CustomerId": {
+						"type": "string"
+					},
+					"AccountNumber": {
+						"type": "string"
+					},
+					"LoanSequence": {
+						"type": "string"
+					},
+					"Role": {
+						"type": "string"
+					},
+					"NationalId": {
+						"type": "string"
+					},
+					"NationalIdType": {
+						"type": "string"
+					},
+					"GivenName": {
+						"type": "string"
+					},
+					"Surname": {
+						"type": "string"
+					},
+					"MobilePhoneNumber": {
+						"type": "string"
+					},
+					"ResidentialPhoneNumber": {
+						"type": "string"
+					},
+					"BusinessPhoneNumber": {
+						"type": "string"
+					},
+					"OtherPhoneNumber": {
+						"type": "string"
+					},
+					"References": {
+						"items": {
+							"$ref": "#/components/schemas/Reference"
+						},
+						"type": "array"
+					},
+					"CustomerInfo": {
+						"$ref": "#/components/schemas/CustomerInfo"
+					}
+				},
+				"required": [
+					"AccountNumber",
+					"LoanSequence",
+					"Role",
+					"NationalId",
+					"NationalIdType",
+					"GivenName",
+					"Surname",
+					"MobilePhoneNumber",
+					"ResidentialPhoneNumber",
+					"BusinessPhoneNumber",
+					"OtherPhoneNumber",
+					"References"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Loan": {
+				"properties": {
+					"AccountNumber": {
+						"type": "string"
+					},
+					"LoanSequence": {
+						"type": "string"
+					},
+					"LoanStatus": {
+						"type": "string"
+					},
+					"LoanBalance": {
+						"type": "number",
+						"format": "double"
+					},
+					"OverdueDay": {
+						"type": "number",
+						"format": "double"
+					},
+					"NetOverdueAmount": {
+						"type": "number",
+						"format": "double"
+					},
+					"LateCharge": {
+						"type": "number",
+						"format": "double"
+					},
+					"AdminCharge": {
+						"type": "number",
+						"format": "double"
+					},
+					"AnnualCharge": {
+						"type": "number",
+						"format": "double"
+					},
+					"NextDueDate": {
+						"type": "string"
+					},
+					"SpecialRemarks": {
+						"type": "string",
+						"nullable": true
+					},
+					"CenterRemarks": {
+						"type": "string",
+						"nullable": true
+					},
+					"TotalNumberOfInstallment": {
+						"type": "number",
+						"format": "double"
+					},
+					"TotalNumberOfPaidInstallment": {
+						"type": "number",
+						"format": "double"
+					},
+					"InstallmentAmount": {
+						"type": "number",
+						"format": "double"
+					},
+					"RepayMethod": {
+						"type": "string"
+					},
+					"RejectReason": {
+						"type": "string"
+					},
+					"LoanType": {
+						"type": "string"
+					},
+					"Group": {
+						"type": "string"
+					},
+					"Role": {
+						"type": "string"
+					},
+					"CampaignType": {
+						"type": "string"
+					},
+					"LoanAmount": {
+						"type": "number",
+						"format": "double"
+					},
+					"IfAmount": {
+						"type": "number",
+						"format": "double"
+					},
+					"LoanDate": {
+						"type": "string"
+					},
+					"ExpiryDate": {
+						"type": "string"
+					},
+					"CutOffDate": {
+						"type": "string"
+					},
+					"LastPayDate": {
+						"type": "string"
+					},
+					"LastPayAmount": {
+						"type": "number",
+						"format": "double"
+					},
+					"Score": {
+						"type": "number",
+						"format": "double"
+					},
+					"FollowStatus": {
+						"type": "string"
+					},
+					"TotalDeferDay": {
+						"type": "number",
+						"format": "double"
+					},
+					"C": {
+						"type": "number",
+						"format": "double"
+					},
+					"C1": {
+						"type": "number",
+						"format": "double"
+					},
+					"C2": {
+						"type": "number",
+						"format": "double"
+					},
+					"DirectSalesReferral": {
+						"type": "string"
+					},
+					"EStatement": {
+						"type": "string"
+					},
+					"ApBankAccountNumber": {
+						"type": "string"
+					},
+					"DeferDay": {
+						"type": "number",
+						"format": "double"
+					},
+					"DiRate": {
+						"type": "number",
+						"format": "double"
+					},
+					"LoanExpiryDate": {
+						"type": "string"
+					},
+					"PdStatus": {
+						"type": "string"
+					},
+					"EarlySettleAmount": {
+						"type": "number",
+						"format": "double"
+					},
+					"InstallmentAmountMinPaid": {
+						"type": "number",
+						"format": "double"
+					},
+					"LastRepayMethod": {
+						"type": "string"
+					},
+					"WaivedAdminCharge": {
+						"type": "number",
+						"format": "double"
+					},
+					"WaivedLateCharge": {
+						"type": "number",
+						"format": "double"
+					},
+					"Debtors": {
+						"items": {
+							"$ref": "#/components/schemas/Debtor"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"AccountNumber",
+					"LoanSequence",
+					"LoanStatus",
+					"LoanBalance",
+					"OverdueDay",
+					"NetOverdueAmount",
+					"LateCharge",
+					"AdminCharge",
+					"AnnualCharge",
+					"NextDueDate",
+					"SpecialRemarks",
+					"CenterRemarks",
+					"Debtors"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Record_string.any_": {
+				"properties": {},
+				"additionalProperties": {},
+				"type": "object",
+				"description": "Construct a type with a set of properties K of type T"
+			},
+			"CallResultCode": {
+				"properties": {
+					"Id": {
+						"type": "string"
+					},
+					"Code": {
+						"type": "string"
+					},
+					"Description": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"Id",
+					"Code",
+					"Description"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ContactAmendmentHistory": {
+				"properties": {
+					"CustomerId": {
+						"type": "string"
+					},
+					"AccountNumber": {
+						"type": "string"
+					},
+					"LoanSequence": {
+						"type": "string"
+					},
+					"Role": {
+						"type": "string"
+					},
+					"PhoneType": {
+						"type": "number",
+						"format": "double"
+					},
+					"PhoneNumber": {
+						"type": "string"
+					},
+					"PhoneExtension": {
+						"type": "string"
+					},
+					"PhoneInvalidReason": {
+						"type": "string"
+					},
+					"ActionDatetime": {
+						"type": "string"
+					},
+					"ActionType": {
+						"type": "string"
+					},
+					"AgentId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"CustomerId",
+					"AccountNumber",
+					"LoanSequence",
+					"Role",
+					"PhoneType",
+					"PhoneNumber",
+					"PhoneExtension",
+					"PhoneInvalidReason",
+					"ActionDatetime",
+					"ActionType",
+					"AgentId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CustomerPhone": {
+				"properties": {
+					"PhoneId": {
+						"type": "string"
+					},
+					"CustomerId": {
+						"type": "string"
+					},
+					"PhoneType": {
+						"type": "number",
+						"format": "double"
+					},
+					"PhoneCountryCode": {
+						"type": "string"
+					},
+					"PhoneNumber": {
+						"type": "string"
+					},
+					"PhoneExtension": {
+						"type": "string"
+					},
+					"PhoneInvalidReason": {
+						"type": "string",
+						"nullable": true
+					},
+					"AccountNumber": {
+						"type": "string"
+					},
+					"LoanSequence": {
+						"type": "string"
+					},
+					"Role": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"PhoneId",
+					"CustomerId",
+					"PhoneType",
+					"PhoneCountryCode",
+					"PhoneNumber",
+					"PhoneExtension",
+					"PhoneInvalidReason",
+					"AccountNumber",
+					"LoanSequence",
+					"Role"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"FollowHistory": {
+				"properties": {
+					"Id": {
+						"type": "string"
+					},
+					"CustomerId": {
+						"type": "string"
+					},
+					"AccountNumber": {
+						"type": "string"
+					},
+					"LoanSequence": {
+						"type": "string"
+					},
+					"StartTime": {
+						"type": "string"
+					},
+					"ActionDateTime": {
+						"type": "string"
+					},
+					"CallResult": {
+						"type": "string"
+					},
+					"CallMemo": {
+						"type": "string"
+					},
+					"ConnId": {
+						"type": "string"
+					},
+					"AgentId": {
+						"type": "string"
+					},
+					"RecorderLink": {
+						"type": "string"
+					},
+					"IsAdhocSearch": {
+						"type": "boolean"
+					},
+					"FollowStatus": {
+						"type": "string"
+					},
+					"NextFollowDateTime": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"Id",
+					"CustomerId",
+					"AccountNumber",
+					"LoanSequence",
+					"StartTime",
+					"ActionDateTime",
+					"CallResult",
+					"CallMemo",
+					"ConnId",
+					"AgentId",
+					"RecorderLink"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"FollowStatusCode": {
+				"properties": {
+					"Id": {
+						"type": "string"
+					},
+					"Code": {
+						"type": "string"
+					},
+					"Description": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"Id",
+					"Code",
+					"Description"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MobilePhone": {
+				"properties": {
+					"mobile": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"mobile"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CustomerDetailsResponse": {
+				"properties": {
+					"Customer": {
+						"properties": {
+							"CustomerResidentials": {
+								"items": {
+									"$ref": "#/components/schemas/CustomerAddress"
+								},
+								"type": "array"
+							},
+							"CustomerBusinesses": {
+								"items": {
+									"$ref": "#/components/schemas/CustomerAddress"
+								},
+								"type": "array"
+							},
+							"Loans": {
+								"items": {
+									"$ref": "#/components/schemas/Loan"
+								},
+								"type": "array"
+							},
+							"PagerNumber": {
+								"type": "string"
+							},
+							"OtherPhoneNumber": {
+								"type": "string"
+							},
+							"MobilePhone2Number": {
+								"type": "string"
+							},
+							"MobilePhoneNumber": {
+								"type": "string"
+							},
+							"Email": {
+								"type": "string"
+							},
+							"DateOfBirth": {
+								"type": "string"
+							},
+							"Nickname": {
+								"type": "string"
+							},
+							"SurnameChinese": {
+								"type": "string"
+							},
+							"GivenNameChinese": {
+								"type": "string"
+							},
+							"Surname": {
+								"type": "string"
+							},
+							"GivenName": {
+								"type": "string"
+							},
+							"NationalIdType": {
+								"type": "string"
+							},
+							"NationalId": {
+								"type": "string"
+							},
+							"Id": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"CustomerResidentials",
+							"CustomerBusinesses",
+							"Loans",
+							"PagerNumber",
+							"OtherPhoneNumber",
+							"MobilePhone2Number",
+							"MobilePhoneNumber",
+							"Email",
+							"DateOfBirth",
+							"Nickname",
+							"SurnameChinese",
+							"GivenNameChinese",
+							"Surname",
+							"GivenName",
+							"NationalIdType",
+							"NationalId",
+							"Id"
+						],
+						"type": "object"
+					},
+					"CustomerBusinessesForEdit": {
+						"items": {
+							"$ref": "#/components/schemas/CustomerAddress"
+						},
+						"type": "array"
+					},
+					"CustomerResidentialsForEdit": {
+						"items": {
+							"$ref": "#/components/schemas/CustomerAddress"
+						},
+						"type": "array"
+					},
+					"ActionCodes": {
+						"$ref": "#/components/schemas/Record_string.any_"
+					},
+					"BankAccountCodes": {
+						"$ref": "#/components/schemas/Record_string.any_"
+					},
+					"BankInMethodCodes": {
+						"$ref": "#/components/schemas/Record_string.any_"
+					},
+					"CallResultCodes": {
+						"items": {
+							"$ref": "#/components/schemas/CallResultCode"
+						},
+						"type": "array"
+					},
+					"ContactAmendmentHistory": {
+						"items": {
+							"$ref": "#/components/schemas/ContactAmendmentHistory"
+						},
+						"type": "array"
+					},
+					"CustomerPhone": {
+						"items": {
+							"$ref": "#/components/schemas/CustomerPhone"
+						},
+						"type": "array"
+					},
+					"FollowHistory": {
+						"items": {
+							"$ref": "#/components/schemas/FollowHistory"
+						},
+						"type": "array"
+					},
+					"FollowStatusCodes": {
+						"items": {
+							"$ref": "#/components/schemas/FollowStatusCode"
+						},
+						"type": "array"
+					},
+					"Debtors": {
+						"items": {
+							"$ref": "#/components/schemas/Debtor"
+						},
+						"type": "array"
+					},
+					"References": {
+						"items": {
+							"$ref": "#/components/schemas/Reference"
+						},
+						"type": "array"
+					},
+					"mobile_phones": {
+						"items": {
+							"$ref": "#/components/schemas/MobilePhone"
+						},
+						"type": "array"
+					},
+					"CustomerNickname": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"Customer",
+					"CustomerBusinessesForEdit",
+					"CustomerResidentialsForEdit",
+					"ActionCodes",
+					"BankAccountCodes",
+					"BankInMethodCodes",
+					"CallResultCodes",
+					"ContactAmendmentHistory",
+					"CustomerPhone",
+					"FollowHistory",
+					"FollowStatusCodes",
+					"Debtors",
+					"References",
+					"mobile_phones",
+					"CustomerNickname"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CustomerRequest": {
+				"properties": {
+					"Tenant": {
+						"type": "string"
+					},
+					"IdType": {
+						"type": "string"
+					},
+					"NationalId": {
+						"type": "string"
+					},
+					"ForceLatest": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"Tenant",
+					"IdType",
+					"NationalId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"WrapupResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"processedAt": {
+						"type": "string"
+					},
+					"accountsProcessed": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"success",
+					"message",
+					"processedAt",
+					"accountsProcessed"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"WrapupRequest": {
+				"properties": {
+					"TenantName": {
+						"type": "string"
+					},
+					"IsAdhocSearch": {
+						"type": "boolean"
+					},
+					"CallInfo": {
+						"properties": {
+							"NextFollowDatetime": {
+								"type": "string"
+							},
+							"CustomerId": {
+								"type": "string"
+							},
+							"AgentId": {
+								"type": "string"
+							},
+							"CallListName": {
+								"type": "string"
+							},
+							"CallResultCodeId": {
+								"type": "string"
+							},
+							"ConnId": {
+								"type": "string"
+							},
+							"CallUUID": {
+								"type": "string"
+							},
+							"InteractionType": {
+								"type": "string"
+							},
+							"InteractionId": {
+								"type": "string"
+							},
+							"Accounts": {
+								"items": {},
+								"type": "array"
+							},
+							"Duration": {
+								"type": "number",
+								"format": "double"
+							},
+							"StartTime": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"CallResultCodeId",
+							"Accounts",
+							"Duration",
+							"StartTime"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"TenantName",
+					"IsAdhocSearch",
+					"CallInfo"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {
+			"jwt": {
+				"type": "http",
+				"scheme": "bearer",
+				"bearerFormat": "JWT",
+				"description": "JWT Authorization header using Bearer scheme. Example: 'Authorization: Bearer {token}'"
+			}
+		}
+	},
+	"info": {
+		"title": "@openauth/tsoa",
+		"version": "0.0.0",
+		"contact": {}
+	},
+	"paths": {
+		"/health": {
+			"get": {
+				"operationId": "GetHealthEndpoint",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/HealthResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Health check endpoint",
+				"tags": [
+					"System"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/me": {
+			"get": {
+				"operationId": "GetMeEndpoint",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserResponse"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Get current user information\nAuthentication is handled by API Gateway's JWT authorizer",
+				"tags": [
+					"System"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/data": {
+			"post": {
+				"operationId": "ExecuteStoredProcedureEndpoint",
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StoredProcedureResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal Server Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Execute a stored procedure",
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StoredProcedureRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/crm/debtor": {
+			"post": {
+				"operationId": "GetDebtorInfoEndpoint",
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CustomerInfo"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Get debtor information by national ID",
+				"tags": [
+					"CRM"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DebtorRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/crm/search": {
+			"post": {
+				"operationId": "SearchCustomersEndpoint",
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CustomerSearchResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Search customers by various criteria",
+				"tags": [
+					"CRM"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SearchRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/crm/customer": {
+			"post": {
+				"operationId": "GetCustomerDetailsEndpoint",
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CustomerDetailsResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Get full customer details by national ID",
+				"tags": [
+					"CRM"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CustomerRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/crm/wrapup": {
+			"post": {
+				"operationId": "SubmitWrapupEndpoint",
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/WrapupResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Submit wrapup data after a call",
+				"tags": [
+					"CRM"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/WrapupRequest"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/api"
+		}
+	]
+}
