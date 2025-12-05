@@ -1,5 +1,5 @@
 {
-  "entryFile": "src/app.ts",
+  "entryFile": "src/tsoa.ts",
   "noImplicitAdditionalProperties": "throw-on-extras",
   "controllerPathGlobs": ["src/controllers/**/*Controller.ts"],
   "compilerOptions": {

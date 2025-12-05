@@ -5,7 +5,11 @@ import {
 } from "aws-lambda";
 import { Resource } from "sst";
 
-const apiUrl = `${Resource.MyApiGateway?.url || "http://localhost:3000"}/api`;
+const apiGatewayUrl = Resource.MyApiGateway?.url;
+const apiUrls = [
+	...(apiGatewayUrl ? [{ url: apiGatewayUrl + "/api" }] : []),
+	{ url: "http://localhost:3000/api" }
+]
 
 /**
  * Lambda handler for GET /api/openapi endpoint
@@ -19,11 +23,7 @@ export const handler: Handler<
 		const spec = await import("../generated/swagger.json", {
 			with: { type: "json" },
 		});
-		spec.default.servers = [
-			...(apiUrl.includes("localhost")
-				? [{ url: apiUrl }]
-				: [{ url: apiUrl }, { url: "http://localhost:3000/api" }]),
-		];
+		spec.default.servers = apiUrls;
 
 		return {
 			statusCode: 200,
@@ -69,7 +69,7 @@ export const uiHandler: Handler<
   </head>
   <body>
   <div id="swagger-ui"></div>
-  <redoc spec-url="${apiUrl}/doc/raw"></redoc>
+  <redoc spec-url="${apiGatewayUrl}/api/doc/raw"></redoc>
   <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
   </body>
   </html>
