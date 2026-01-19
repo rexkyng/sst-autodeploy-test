@@ -16,5 +16,9 @@
   "dependencies": {
     "sst": "^3"
   },
-  "private": true
+  "private": true,
+  "engine": {
+    "node": "25.3.0"
+  },
+  "packageManager": "bun"
 }
