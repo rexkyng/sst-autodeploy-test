@@ -1,11 +1,14 @@
 import * as fs from "fs";
 import * as path from "path";
 
-// Path to the generated OpenAPI spec from TSOA
-export const openapiSpecPath = "packages/api/swagger/swagger.json";
+// Path to the OpenAPI spec generated from oRPC
+export const openapiSpecPath = "packages/api/openapi.json";
 
 // Read the OpenAPI spec as a string (required by AWS API Gateway)
-const openapiSpecString = fs.readFileSync(path.resolve(openapiSpecPath), "utf-8");
+const openapiSpecString = fs.readFileSync(
+	path.resolve(openapiSpecPath),
+	"utf-8"
+);
 
 export const apigateway = new sst.aws.ApiGatewayV2("MyApiGateway", {
 	cors: {
@@ -34,3 +37,29 @@ apigateway.route("GET /api/doc", {
 });
 
 // Other routes and auth config are handled in the auth.ts file
+
+// Link to external API Gateway (if configured)
+// const externalApiGatewayId =
+// 	process.env.EXTERNAL_API_GATEWAY_ID || "ekqql84h0a";
+
+// if (externalApiGatewayId) {
+// 	// Create HTTP_PROXY integration on external gateway pointing to internal gateway
+// 	const proxyIntegration = new aws.apigatewayv2.Integration(
+// 		"ExternalToInternalIntegration",
+// 		{
+// 			apiId: externalApiGatewayId,
+// 			integrationType: "HTTP_PROXY",
+// 			integrationMethod: "ANY",
+// 			integrationUri: $concat(apigateway.url, "{proxy}"),
+// 			payloadFormatVersion: "1.0",
+// 		}
+// 	);
+
+// 	// Add catch-all route on external gateway
+// 	new aws.apigatewayv2.Route("ExternalProxyRoute", {
+// 		apiId: externalApiGatewayId,
+// 		routeKey: "ANY /{proxy+}",
+// 		target: $concat("integrations/", proxyIntegration.id),
+// 	});
+
+// }

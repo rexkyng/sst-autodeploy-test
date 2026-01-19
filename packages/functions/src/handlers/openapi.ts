@@ -20,10 +20,11 @@ export const handler: Handler<
 	APIGatewayProxyResult
 > = async () => {
 	try {
-		const spec = await import("@openauth/tsoa/generated/swagger.json", {
+		const spec = await import("@openauth/api/openapi.json", {
 			with: { type: "json" },
 		});
-		spec.default.servers = apiUrls;
+		const document = spec.default || spec;
+		document.servers = apiUrls;
 
 		return {
 			statusCode: 200,
@@ -33,7 +34,7 @@ export const handler: Handler<
 				"Access-Control-Allow-Methods": "GET, OPTIONS",
 				"Access-Control-Allow-Headers": "Content-Type, Authorization",
 			},
-			body: JSON.stringify(spec.default || spec),
+			body: JSON.stringify(document),
 		};
 	} catch (error) {
 		console.error("Error loading OpenAPI spec:", error);
@@ -60,7 +61,7 @@ export const uiHandler: Handler<
 	APIGatewayProxyEvent,
 	APIGatewayProxyResult
 > = async () => {
-	// Generate HTML using swagger-ui-express library
+	const docBase = apiGatewayUrl || "http://localhost:3000";
 	let html = `
   <!DOCTYPE html>
   <html>
@@ -69,7 +70,7 @@ export const uiHandler: Handler<
   </head>
   <body>
   <div id="swagger-ui"></div>
-  <redoc spec-url="${apiGatewayUrl}/api/doc/raw"></redoc>
+  <redoc spec-url="${docBase}/api/doc/raw"></redoc>
   <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
   </body>
   </html>
@@ -84,5 +85,16 @@ export const uiHandler: Handler<
 			"Access-Control-Allow-Headers": "Content-Type, Authorization",
 		},
 		body: html,
+	};
+};
+
+
+export const helloWorldHandler: Handler<
+	APIGatewayProxyEvent,
+	APIGatewayProxyResult
+> = async () => {
+	return {
+		statusCode: 200,
+		body: "Hello World",
 	};
 };

@@ -27,88 +27,35 @@ const jwtAuthorizer = apigateway.addAuthorizer({
 	},
 });
 
-// CRM endpoints (authenticated)
-apigateway.route(
-	"POST /api/crm/debtor",
-	{
-		handler: "packages/functions/src/handlers/debtor.handler",
-		link: [apigateway, auth, cognitoClient],
-	},
-	{
-		auth: {
-			lambda: jwtAuthorizer.id,
-		},
-	},
-);
-apigateway.route(
-	"POST /api/crm/search",
-	{
-		handler: "packages/functions/src/handlers/search.handler",
-		link: [apigateway, auth, cognitoClient],
-	},
-	{
-		auth: {
-			lambda: jwtAuthorizer.id,
-		},
-	},
-);
-apigateway.route(
-	"POST /api/crm/customer",
-	{
-		handler: "packages/functions/src/handlers/customer.handler",
-		link: [apigateway, auth, cognitoClient],
-	},
-	{
-		auth: {
-			lambda: jwtAuthorizer.id,
-		},
-	},
-);
-apigateway.route(
-	"POST /api/crm/wrapup",
-	{
-		handler: "packages/functions/src/handlers/wrapup.handler",
-		link: [apigateway, auth, cognitoClient],
-	},
-	{
-		auth: {
-			lambda: jwtAuthorizer.id,
-		},
-	},
-);
-
-// Data endpoint (authenticated)
-apigateway.route(
-	"POST /api/data",
-	{
-		handler: "packages/functions/src/handlers/data.handler",
-		link: [apigateway, auth, cognitoClient],
-	},
-	{
-		auth: {
-			lambda: jwtAuthorizer.id,
-		},
-	},
-);
+const orpcHandler = "packages/functions/src/handlers/orpc.handler";
 
 // Public endpoints
 apigateway.route("GET /api/health", {
-	handler: "packages/functions/src/handlers/main.handler",
+	handler: orpcHandler,
 	link: [apigateway, auth, cognitoClient],
 });
 
-// User info endpoint (authenticated)
-apigateway.route(
+// Authenticated endpoints (all routed through the single oRPC handler)
+[
 	"GET /api/me",
-	{
-		handler: "packages/functions/src/handlers/main.handler",
-		link: [apigateway, auth, cognitoClient],
-	},
-	{
-		auth: {
-			lambda: jwtAuthorizer.id,
+	"POST /api/data",
+	"POST /api/crm/debtor",
+	"POST /api/crm/search",
+	"POST /api/crm/customer",
+	"POST /api/crm/wrapup",
+].forEach((route) =>
+	apigateway.route(
+		route,
+		{
+			handler: orpcHandler,
+			link: [apigateway, auth, cognitoClient],
 		},
-	},
+		{
+			auth: {
+				lambda: jwtAuthorizer.id,
+			},
+		},
+	),
 );
 
 // Catch-all route - everything else (not under /api) goes to auth

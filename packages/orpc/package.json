@@ -1,0 +1,22 @@
+{
+  "name": "@openauth/orpc",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    "./router": "./src/router.ts",
+    "./openapi": "./src/openapi.ts"
+  },
+  "scripts": {
+    "generate:openapi": "bun run src/openapi.ts"
+  },
+  "dependencies": {
+    "@openauth/core": "*",
+    "@orpc/openapi": "latest",
+    "@orpc/server": "latest",
+    "@orpc/zod": "latest",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1"
+  }
+}

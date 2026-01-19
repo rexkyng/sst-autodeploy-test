@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": "./src/api.ts"
+    ".": "./src/api.ts",
+    "./openapi.json": "./openapi.json"
   },
   "scripts": {
-    "generate": "swagger-typescript-api generate -p ./swagger/swagger.json -o ./src --name api.ts"
+    "generate": "bun x swagger-typescript-api generate -p ./openapi.json -o ./src --name api.ts"
   },
   "devDependencies": {
     "swagger-typescript-api": "^13.0.0"

@@ -10,377 +10,6 @@
  * ---------------------------------------------------------------
  */
 
-export interface HealthResponse {
-  status: string;
-  timestamp: string;
-  service: string;
-  version: string;
-}
-
-export interface UserResponse {
-  userId: string;
-  name: string;
-}
-
-/** Shared types for TSOA controllers */
-export interface ErrorResponse {
-  error: string;
-  message?: string;
-}
-
-export interface StoredProcedureResponse {
-  Result?: {
-    Column1?: string;
-    Table1?: any[];
-    Table?: any[];
-  };
-  Parameters?: any[];
-  error?: string;
-}
-
-export interface StoredProcedureRequest {
-  Provider: string;
-  Command: {
-    Parameters: any[];
-    Type: string;
-    Text: string;
-  };
-}
-
-export interface CustomerAddress {
-  CustomerId: string;
-  AddressType: string;
-  AddressLine1: string;
-  AddressLine2: string;
-  AddressLine3: string;
-  AddressLine4: string;
-  PhoneNumber: string;
-  PhoneCountryCode?: string;
-  PhoneExtension?: string;
-  Country: string;
-  PostalCode: string;
-  Address?: string;
-}
-
-export interface CustomerInfo {
-  CustomerBusinesses: CustomerAddress[];
-  CustomerResidentials: CustomerAddress[];
-  SpouseBusinessPhoneCountryCode: string;
-  SpouseBusinessPhoneNumber: string;
-  SpouseCompanyAddress: string;
-  SpouseAge: string;
-  SpouseCompanyName: string;
-  SpouseComplain: string | null;
-  SpouseMobilePhoneCountryCode: string;
-  SpouseMobilePhoneNumber: string;
-  SpouseName: string;
-  SpouseNameChinese: string;
-  SpouseNickname: string;
-  SpousePosition: string;
-  OverseasWorkerLoanAddress: string;
-  OverseasWorkerLoanDependantName: string;
-  OverseasWorkerLoanEmployerName: string;
-  OverseasWorkerLoanEmployerPhone: string;
-  OverseasWorkerLoanPhoneNumber: string;
-  OverseasWorkerLoanRelationship: string;
-  GivenName: string;
-  Surname: string;
-  GivenNameChinese: string;
-  SurnameChinese: string;
-  Id: string;
-  NationalIdType: string;
-  DateOfMatch: string;
-  PartialIdMatched: boolean;
-  Nationality: string;
-  MaritalStatus: string;
-  DateOfBirth: string;
-  Email: string;
-}
-
-export interface DebtorRequest {
-  Tenant?: string;
-  IdType: string;
-  NationalId: string;
-}
-
-export interface CustomerSearchResponse {
-  Customer: {
-    GivenName: string;
-    Surname: string;
-    Nickname: string;
-    NationalId: string;
-    NationalIdType: string;
-  }[];
-}
-
-export interface SearchRequest {
-  Tenant: string;
-  AccountNumber?: string | null;
-  LoanSequence?: string | null;
-  NationalIdType?: string | null;
-  NationalId?: string | null;
-  Surname?: string | null;
-  GivenName?: string | null;
-  ReferenceName?: string | null;
-  CompanyName?: string | null;
-  PhoneNumber?: string | null;
-  ReferencePhoneNumber?: string | null;
-  CustomerId?: string | null;
-  AgentId?: string | null;
-}
-
-export interface Reference {
-  Role: string;
-  GivenName: string;
-  Surname: string;
-  GivenNameChinese?: string;
-  SurnameChinese?: string;
-  /** @format double */
-  Age?: number;
-  RelationshipCode?: string;
-  MobilePhoneNumber: string;
-  MobilePhoneCountryCode?: string;
-  ResidentialPhoneNumber: string;
-  ResidentialPhoneCountryCode?: string;
-  BusinessPhoneNumber: string;
-  BusinessPhoneCountryCode?: string;
-  OtherPhoneNumber: string;
-  OtherPhoneCountryCode?: string;
-  Company?: string;
-  Position?: string;
-  HasActiveLoans?: boolean;
-  CustomerId?: string;
-}
-
-export interface Debtor {
-  CustomerId?: string;
-  AccountNumber: string;
-  LoanSequence: string;
-  Role: string;
-  NationalId: string;
-  NationalIdType: string;
-  GivenName: string;
-  Surname: string;
-  MobilePhoneNumber: string;
-  ResidentialPhoneNumber: string;
-  BusinessPhoneNumber: string;
-  OtherPhoneNumber: string;
-  References: Reference[];
-  CustomerInfo?: CustomerInfo;
-}
-
-export interface Loan {
-  AccountNumber: string;
-  LoanSequence: string;
-  LoanStatus: string;
-  /** @format double */
-  LoanBalance: number;
-  /** @format double */
-  OverdueDay: number;
-  /** @format double */
-  NetOverdueAmount: number;
-  /** @format double */
-  LateCharge: number;
-  /** @format double */
-  AdminCharge: number;
-  /** @format double */
-  AnnualCharge: number;
-  NextDueDate: string;
-  SpecialRemarks: string | null;
-  CenterRemarks: string | null;
-  /** @format double */
-  TotalNumberOfInstallment?: number;
-  /** @format double */
-  TotalNumberOfPaidInstallment?: number;
-  /** @format double */
-  InstallmentAmount?: number;
-  RepayMethod?: string;
-  RejectReason?: string;
-  LoanType?: string;
-  Group?: string;
-  Role?: string;
-  CampaignType?: string;
-  /** @format double */
-  LoanAmount?: number;
-  /** @format double */
-  IfAmount?: number;
-  LoanDate?: string;
-  ExpiryDate?: string;
-  CutOffDate?: string;
-  LastPayDate?: string;
-  /** @format double */
-  LastPayAmount?: number;
-  /** @format double */
-  Score?: number;
-  FollowStatus?: string;
-  /** @format double */
-  TotalDeferDay?: number;
-  /** @format double */
-  C?: number;
-  /** @format double */
-  C1?: number;
-  /** @format double */
-  C2?: number;
-  DirectSalesReferral?: string;
-  EStatement?: string;
-  ApBankAccountNumber?: string;
-  /** @format double */
-  DeferDay?: number;
-  /** @format double */
-  DiRate?: number;
-  LoanExpiryDate?: string;
-  PdStatus?: string;
-  /** @format double */
-  EarlySettleAmount?: number;
-  /** @format double */
-  InstallmentAmountMinPaid?: number;
-  LastRepayMethod?: string;
-  /** @format double */
-  WaivedAdminCharge?: number;
-  /** @format double */
-  WaivedLateCharge?: number;
-  Debtors: Debtor[];
-}
-
-/** Construct a type with a set of properties K of type T */
-export type RecordStringAny = Record<string, any>;
-
-export interface CallResultCode {
-  Id: string;
-  Code: string;
-  Description: string;
-}
-
-export interface ContactAmendmentHistory {
-  CustomerId: string;
-  AccountNumber: string;
-  LoanSequence: string;
-  Role: string;
-  /** @format double */
-  PhoneType: number;
-  PhoneNumber: string;
-  PhoneExtension: string;
-  PhoneInvalidReason: string;
-  ActionDatetime: string;
-  ActionType: string;
-  AgentId: string;
-}
-
-export interface CustomerPhone {
-  PhoneId: string;
-  CustomerId: string;
-  /** @format double */
-  PhoneType: number;
-  PhoneCountryCode: string;
-  PhoneNumber: string;
-  PhoneExtension: string;
-  PhoneInvalidReason: string | null;
-  AccountNumber: string;
-  LoanSequence: string;
-  Role: string;
-}
-
-export interface FollowHistory {
-  Id: string;
-  CustomerId: string;
-  AccountNumber: string;
-  LoanSequence: string;
-  StartTime: string;
-  ActionDateTime: string;
-  CallResult: string;
-  CallMemo: string;
-  ConnId: string;
-  AgentId: string;
-  RecorderLink: string;
-  IsAdhocSearch?: boolean;
-  FollowStatus?: string;
-  NextFollowDateTime?: string;
-}
-
-export interface FollowStatusCode {
-  Id: string;
-  Code: string;
-  Description: string;
-}
-
-export interface MobilePhone {
-  mobile: string;
-}
-
-export interface CustomerDetailsResponse {
-  Customer: {
-    CustomerResidentials: CustomerAddress[];
-    CustomerBusinesses: CustomerAddress[];
-    Loans: Loan[];
-    PagerNumber: string;
-    OtherPhoneNumber: string;
-    MobilePhone2Number: string;
-    MobilePhoneNumber: string;
-    Email: string;
-    DateOfBirth: string;
-    Nickname: string;
-    SurnameChinese: string;
-    GivenNameChinese: string;
-    Surname: string;
-    GivenName: string;
-    NationalIdType: string;
-    NationalId: string;
-    Id: string;
-  };
-  CustomerBusinessesForEdit: CustomerAddress[];
-  CustomerResidentialsForEdit: CustomerAddress[];
-  /** Construct a type with a set of properties K of type T */
-  ActionCodes: RecordStringAny;
-  /** Construct a type with a set of properties K of type T */
-  BankAccountCodes: RecordStringAny;
-  /** Construct a type with a set of properties K of type T */
-  BankInMethodCodes: RecordStringAny;
-  CallResultCodes: CallResultCode[];
-  ContactAmendmentHistory: ContactAmendmentHistory[];
-  CustomerPhone: CustomerPhone[];
-  FollowHistory: FollowHistory[];
-  FollowStatusCodes: FollowStatusCode[];
-  Debtors: Debtor[];
-  References: Reference[];
-  mobile_phones: MobilePhone[];
-  CustomerNickname: string;
-}
-
-export interface CustomerRequest {
-  Tenant: string;
-  IdType: string;
-  NationalId: string;
-  ForceLatest?: boolean;
-}
-
-export interface WrapupResponse {
-  success: boolean;
-  message: string;
-  processedAt: string;
-  /** @format double */
-  accountsProcessed: number;
-}
-
-export interface WrapupRequest {
-  TenantName: string;
-  IsAdhocSearch: boolean;
-  CallInfo: {
-    NextFollowDatetime?: string;
-    CustomerId?: string;
-    AgentId?: string;
-    CallListName?: string;
-    CallResultCodeId: string;
-    ConnId?: string;
-    CallUUID?: string;
-    InteractionType?: string;
-    InteractionId?: string;
-    Accounts: any[];
-    /** @format double */
-    Duration: number;
-    StartTime: string;
-  };
-}
-
 export type QueryParamsType = Record<string | number, any>;
 export type ResponseFormat = keyof Omit<Body, "body" | "bodyUsed">;
 
@@ -434,7 +63,7 @@ export enum ContentType {
 }
 
 export class HttpClient<SecurityDataType = unknown> {
-  public baseUrl: string = "/api";
+  public baseUrl: string = "http://localhost:3000/api";
   private securityData: SecurityDataType | null = null;
   private securityWorker?: ApiConfig<SecurityDataType>["securityWorker"];
   private abortControllers = new Map<CancelToken, AbortController>();
@@ -637,150 +266,500 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title @openauth/tsoa
+ * @title OpenAuth API
  * @version 0.0.0
- * @baseUrl /api
- * @contact
+ * @baseUrl http://localhost:3000/api
  */
 export class Api<
   SecurityDataType extends unknown,
 > extends HttpClient<SecurityDataType> {
-  health = {
+  api = {
     /**
-     * @description Health check endpoint
+     * No description
      *
-     * @tags System
-     * @name GetHealthEndpoint
-     * @request GET:/health
+     * @name Health
+     * @summary Health check endpoint
+     * @request GET:/api/health
+     * @secure
      */
-    getHealthEndpoint: (params: RequestParams = {}) =>
-      this.request<HealthResponse, any>({
-        path: `/health`,
+    health: (params: RequestParams = {}) =>
+      this.request<
+        any,
+        | (
+            | {
+                defined: true;
+                code: "BAD_REQUEST";
+                status: 400;
+                /** @default "Bad Request" */
+                message: string;
+                data?: any;
+              }
+            | {
+                defined: false;
+                code: string;
+                status: number;
+                message: string;
+                data?: any;
+              }
+          )
+        | (
+            | {
+                defined: true;
+                code: "NOT_FOUND";
+                status: 404;
+                /** @default "Not Found" */
+                message: string;
+                data?: any;
+              }
+            | {
+                defined: false;
+                code: string;
+                status: number;
+                message: string;
+                data?: any;
+              }
+          )
+        | (
+            | {
+                defined: true;
+                code: "INTERNAL_SERVER_ERROR";
+                status: 500;
+                /** @default "Internal Server Error" */
+                message: string;
+                data?: any;
+              }
+            | {
+                defined: false;
+                code: string;
+                status: number;
+                message: string;
+                data?: any;
+              }
+          )
+      >({
+        path: `/api/health`,
         method: "GET",
+        secure: true,
         format: "json",
         ...params,
       }),
-  };
-  me = {
+
     /**
-     * @description Get current user information Authentication is handled by API Gateway's JWT authorizer
+     * No description
      *
-     * @tags System
-     * @name GetMeEndpoint
-     * @request GET:/me
+     * @name Me
+     * @summary Get current user info
+     * @request GET:/api/me
      * @secure
      */
-    getMeEndpoint: (params: RequestParams = {}) =>
-      this.request<UserResponse, ErrorResponse>({
-        path: `/me`,
+    me: (params: RequestParams = {}) =>
+      this.request<
+        any,
+        | (
+            | {
+                defined: true;
+                code: "BAD_REQUEST";
+                status: 400;
+                /** @default "Bad Request" */
+                message: string;
+                data?: any;
+              }
+            | {
+                defined: false;
+                code: string;
+                status: number;
+                message: string;
+                data?: any;
+              }
+          )
+        | (
+            | {
+                defined: true;
+                code: "NOT_FOUND";
+                status: 404;
+                /** @default "Not Found" */
+                message: string;
+                data?: any;
+              }
+            | {
+                defined: false;
+                code: string;
+                status: number;
+                message: string;
+                data?: any;
+              }
+          )
+        | (
+            | {
+                defined: true;
+                code: "INTERNAL_SERVER_ERROR";
+                status: 500;
+                /** @default "Internal Server Error" */
+                message: string;
+                data?: any;
+              }
+            | {
+                defined: false;
+                code: string;
+                status: number;
+                message: string;
+                data?: any;
+              }
+          )
+      >({
+        path: `/api/me`,
         method: "GET",
         secure: true,
         format: "json",
         ...params,
       }),
-  };
-  data = {
+
     /**
-     * @description Execute a stored procedure
+     * No description
      *
-     * @tags Data
-     * @name ExecuteStoredProcedureEndpoint
-     * @request POST:/data
+     * @name Data
+     * @summary Execute a stored procedure
+     * @request POST:/api/data
      * @secure
      */
-    executeStoredProcedureEndpoint: (
-      data: StoredProcedureRequest,
-      params: RequestParams = {},
-    ) =>
-      this.request<StoredProcedureResponse, ErrorResponse>({
-        path: `/data`,
+    data: (params: RequestParams = {}) =>
+      this.request<
+        any,
+        | (
+            | {
+                defined: true;
+                code: "BAD_REQUEST";
+                status: 400;
+                /** @default "Bad Request" */
+                message: string;
+                data?: any;
+              }
+            | {
+                defined: false;
+                code: string;
+                status: number;
+                message: string;
+                data?: any;
+              }
+          )
+        | (
+            | {
+                defined: true;
+                code: "NOT_FOUND";
+                status: 404;
+                /** @default "Not Found" */
+                message: string;
+                data?: any;
+              }
+            | {
+                defined: false;
+                code: string;
+                status: number;
+                message: string;
+                data?: any;
+              }
+          )
+        | (
+            | {
+                defined: true;
+                code: "INTERNAL_SERVER_ERROR";
+                status: 500;
+                /** @default "Internal Server Error" */
+                message: string;
+                data?: any;
+              }
+            | {
+                defined: false;
+                code: string;
+                status: number;
+                message: string;
+                data?: any;
+              }
+          )
+      >({
+        path: `/api/data`,
         method: "POST",
-        body: data,
         secure: true,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
-  };
-  crm = {
-    /**
-     * @description Get debtor information by national ID
-     *
-     * @tags CRM
-     * @name GetDebtorInfoEndpoint
-     * @request POST:/crm/debtor
-     * @secure
-     */
-    getDebtorInfoEndpoint: (data: DebtorRequest, params: RequestParams = {}) =>
-      this.request<CustomerInfo, ErrorResponse>({
-        path: `/crm/debtor`,
-        method: "POST",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
         format: "json",
         ...params,
       }),
 
     /**
-     * @description Search customers by various criteria
+     * No description
      *
-     * @tags CRM
-     * @name SearchCustomersEndpoint
-     * @request POST:/crm/search
+     * @name CrmDebtor
+     * @summary Get debtor information
+     * @request POST:/api/crm/debtor
      * @secure
      */
-    searchCustomersEndpoint: (
-      data: SearchRequest,
-      params: RequestParams = {},
-    ) =>
-      this.request<CustomerSearchResponse, ErrorResponse>({
-        path: `/crm/search`,
+    crmDebtor: (params: RequestParams = {}) =>
+      this.request<
+        any,
+        | (
+            | {
+                defined: true;
+                code: "BAD_REQUEST";
+                status: 400;
+                /** @default "Bad Request" */
+                message: string;
+                data?: any;
+              }
+            | {
+                defined: false;
+                code: string;
+                status: number;
+                message: string;
+                data?: any;
+              }
+          )
+        | (
+            | {
+                defined: true;
+                code: "NOT_FOUND";
+                status: 404;
+                /** @default "Not Found" */
+                message: string;
+                data?: any;
+              }
+            | {
+                defined: false;
+                code: string;
+                status: number;
+                message: string;
+                data?: any;
+              }
+          )
+        | (
+            | {
+                defined: true;
+                code: "INTERNAL_SERVER_ERROR";
+                status: 500;
+                /** @default "Internal Server Error" */
+                message: string;
+                data?: any;
+              }
+            | {
+                defined: false;
+                code: string;
+                status: number;
+                message: string;
+                data?: any;
+              }
+          )
+      >({
+        path: `/api/crm/debtor`,
         method: "POST",
-        body: data,
         secure: true,
-        type: ContentType.Json,
         format: "json",
         ...params,
       }),
 
     /**
-     * @description Get full customer details by national ID
+     * No description
      *
-     * @tags CRM
-     * @name GetCustomerDetailsEndpoint
-     * @request POST:/crm/customer
+     * @name CrmSearch
+     * @summary Search customers
+     * @request POST:/api/crm/search
      * @secure
      */
-    getCustomerDetailsEndpoint: (
-      data: CustomerRequest,
-      params: RequestParams = {},
-    ) =>
-      this.request<CustomerDetailsResponse, ErrorResponse>({
-        path: `/crm/customer`,
+    crmSearch: (params: RequestParams = {}) =>
+      this.request<
+        any,
+        | (
+            | {
+                defined: true;
+                code: "BAD_REQUEST";
+                status: 400;
+                /** @default "Bad Request" */
+                message: string;
+                data?: any;
+              }
+            | {
+                defined: false;
+                code: string;
+                status: number;
+                message: string;
+                data?: any;
+              }
+          )
+        | (
+            | {
+                defined: true;
+                code: "NOT_FOUND";
+                status: 404;
+                /** @default "Not Found" */
+                message: string;
+                data?: any;
+              }
+            | {
+                defined: false;
+                code: string;
+                status: number;
+                message: string;
+                data?: any;
+              }
+          )
+        | (
+            | {
+                defined: true;
+                code: "INTERNAL_SERVER_ERROR";
+                status: 500;
+                /** @default "Internal Server Error" */
+                message: string;
+                data?: any;
+              }
+            | {
+                defined: false;
+                code: string;
+                status: number;
+                message: string;
+                data?: any;
+              }
+          )
+      >({
+        path: `/api/crm/search`,
         method: "POST",
-        body: data,
         secure: true,
-        type: ContentType.Json,
         format: "json",
         ...params,
       }),
 
     /**
-     * @description Submit wrapup data after a call
+     * No description
      *
-     * @tags CRM
-     * @name SubmitWrapupEndpoint
-     * @request POST:/crm/wrapup
+     * @name CrmCustomer
+     * @summary Get customer details
+     * @request POST:/api/crm/customer
      * @secure
      */
-    submitWrapupEndpoint: (data: WrapupRequest, params: RequestParams = {}) =>
-      this.request<WrapupResponse, ErrorResponse>({
-        path: `/crm/wrapup`,
+    crmCustomer: (params: RequestParams = {}) =>
+      this.request<
+        any,
+        | (
+            | {
+                defined: true;
+                code: "BAD_REQUEST";
+                status: 400;
+                /** @default "Bad Request" */
+                message: string;
+                data?: any;
+              }
+            | {
+                defined: false;
+                code: string;
+                status: number;
+                message: string;
+                data?: any;
+              }
+          )
+        | (
+            | {
+                defined: true;
+                code: "NOT_FOUND";
+                status: 404;
+                /** @default "Not Found" */
+                message: string;
+                data?: any;
+              }
+            | {
+                defined: false;
+                code: string;
+                status: number;
+                message: string;
+                data?: any;
+              }
+          )
+        | (
+            | {
+                defined: true;
+                code: "INTERNAL_SERVER_ERROR";
+                status: 500;
+                /** @default "Internal Server Error" */
+                message: string;
+                data?: any;
+              }
+            | {
+                defined: false;
+                code: string;
+                status: number;
+                message: string;
+                data?: any;
+              }
+          )
+      >({
+        path: `/api/crm/customer`,
         method: "POST",
-        body: data,
         secure: true,
-        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @name CrmWrapup
+     * @summary Submit wrapup
+     * @request POST:/api/crm/wrapup
+     * @secure
+     */
+    crmWrapup: (params: RequestParams = {}) =>
+      this.request<
+        any,
+        | (
+            | {
+                defined: true;
+                code: "BAD_REQUEST";
+                status: 400;
+                /** @default "Bad Request" */
+                message: string;
+                data?: any;
+              }
+            | {
+                defined: false;
+                code: string;
+                status: number;
+                message: string;
+                data?: any;
+              }
+          )
+        | (
+            | {
+                defined: true;
+                code: "NOT_FOUND";
+                status: 404;
+                /** @default "Not Found" */
+                message: string;
+                data?: any;
+              }
+            | {
+                defined: false;
+                code: string;
+                status: number;
+                message: string;
+                data?: any;
+              }
+          )
+        | (
+            | {
+                defined: true;
+                code: "INTERNAL_SERVER_ERROR";
+                status: 500;
+                /** @default "Internal Server Error" */
+                message: string;
+                data?: any;
+              }
+            | {
+                defined: false;
+                code: string;
+                status: number;
+                message: string;
+                data?: any;
+              }
+          )
+      >({
+        path: `/api/crm/wrapup`,
+        method: "POST",
+        secure: true,
         format: "json",
         ...params,
       }),

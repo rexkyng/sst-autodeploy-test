@@ -4,12 +4,16 @@
   "type": "module",
   "dependencies": {
     "@openauth/core": "*",
-    "@openauth/tsoa": "*",
+    "@openauth/orpc": "*",
     "@openauthjs/openauth": "^0.3.6",
+    "@orpc/openapi": "latest",
+    "@orpc/server": "latest",
+    "express": "^4.21.0",
     "sst": "*"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8",
+    "@types/express": "^4.17.21",
     "@types/node": "^24.10.1"
   }
 }
