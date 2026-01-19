@@ -20,5 +20,5 @@
   "engine": {
     "node": "25.3.0"
   },
-  "packageManager": "bun"
+  "packageManager": "bun@1.2.0"
 }
